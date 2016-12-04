@@ -6,10 +6,13 @@ import {
   View,
 } from 'react-native';
 
+import Map from './Map';
+
 class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Map />
         <Text>Hello World!</Text>
       </View>
     );
