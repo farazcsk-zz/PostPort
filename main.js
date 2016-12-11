@@ -12,8 +12,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      lat: 0,
-      lng: 0,
+      lat: 37.78825,
+      lng: -122.4324,
     };
     this.getLocationAsync = this.getLocationAsync.bind(this);
   }
@@ -23,13 +23,22 @@ class App extends React.Component {
   }
 
   async getLocationAsync() {
-    const { Location, Permissions } = Exponent;
+    const { Permissions } = Exponent;
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
 
     if (status === 'granted') {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(
+      (position) => {
         this.setState({
-          ...this.state,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => console.log(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 50000, maximumAge: 1000 },
+    );
+      this.watchID = navigator.geolocation.watchPosition((position) => {
+        this.setState({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
@@ -37,6 +46,10 @@ class App extends React.Component {
     } else {
       throw new Error('Location permission not granted');
     }
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   render() {
