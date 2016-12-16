@@ -12,52 +12,26 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      lat: 37.78825,
-      lng: -122.4324,
+      latitude: 37.78825,
+      longitude: -122.4324,
     };
-    this.getLocationAsync = this.getLocationAsync.bind(this);
   }
 
   componentWillMount() {
-    this.getLocationAsync();
-  }
-
-  async getLocationAsync() {
-    const { Permissions } = Exponent;
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-
-    if (status === 'granted') {
-      navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => console.log(JSON.stringify(error)),
-      { enableHighAccuracy: true, timeout: 50000, maximumAge: 1000 },
-    );
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-        this.setState({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      });
-    } else {
-      throw new Error('Location permission not granted');
-    }
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
+    const { Location } = Exponent;
+    console.log('getting location...');
+    Location.getCurrentPositionAsync({ enableHighAccuracy: true })
+    .then((location) => {
+      this.setState(location.coords);
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Map 
-          lat={this.state.lat}
-          lng={this.state.lng}
+        <Map
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
         />
       </View>
     );
