@@ -2,7 +2,7 @@
   "name": "marauders-map-native",
   "description": "An empty new project",
   "slug": "marauders-map-native",
-  "sdkVersion": "11.0.0",
+  "sdkVersion": "12.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
