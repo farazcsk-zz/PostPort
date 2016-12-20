@@ -3,6 +3,7 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  Button,
 } from 'react-native';
 
 import Map from './Map';
@@ -18,11 +19,18 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const { Location } = Exponent;
-    console.log('getting location...');
-    Location.getCurrentPositionAsync({ enableHighAccuracy: true })
-    .then((location) => {
-      this.setState(location.coords);
+    const { Location, Permissions } = Exponent;
+    Permissions.getAsync(Permissions.REMOTE_NOTIFICATIONS)
+    .then((response) => {
+      const { status } = response;
+
+      if (status === 'granted') {
+        console.log('yoyoyo');
+        Location.getCurrentPositionAsync({ enableHighAccuracy: true })
+        .then((location) => {
+          this.setState(location.coords);
+        });
+      }
     });
   }
 
@@ -32,6 +40,13 @@ class App extends React.Component {
         <Map
           latitude={this.state.latitude}
           longitude={this.state.longitude}
+        />
+        <Button
+          title="Click me!"
+          color="#05A5D1"
+          onPress={() => {
+            console.log('button press');
+          }}
         />
       </View>
     );

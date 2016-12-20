@@ -1,0 +1,5 @@
+{
+    "entryPointFilename": "main.js",
+    "entryPointComponent": "marauders-map-native",
+    "overwriteExpJson": false
+}

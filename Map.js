@@ -1,6 +1,5 @@
 import { Components } from 'exponent';
 import React from 'react';
-import { View, Text } from 'react-native';
 
 class Map extends React.Component {
   constructor(props) {
@@ -38,14 +37,14 @@ class Map extends React.Component {
     return (
       <Components.MapView
         style={{ flex: 1 }}
-        initialRegion={{
-          latitude: this.state.region.latitude,
-          longitude: this.state.region.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
         region={this.state.region}
-      />
+      >
+        <Components.MapView.Marker
+          coordinate={{ latitude: this.state.region.latitude, longitude: this.state.region.longitude }}
+          title="Faraz"
+          description="My first marker..."
+        />
+      </Components.MapView>
     );
   }
 }
