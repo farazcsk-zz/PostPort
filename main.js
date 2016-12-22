@@ -6,7 +6,7 @@ import {
   Button,
 } from 'react-native';
 
-import Map from './Map';
+import MapScreen from './screens/MapScreen';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Map
+        <MapScreen
           latitude={this.state.latitude}
           longitude={this.state.longitude}
         />

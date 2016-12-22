@@ -1,7 +1,7 @@
 import { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 
-class Map extends React.Component {
+class MapScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,9 +50,9 @@ class Map extends React.Component {
   }
 }
 
-Map.propTypes = {
+MapScreen.propTypes = {
   latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
 };
 
-export default Map;
+export default MapScreen;
