@@ -5,7 +5,12 @@
   "sdkVersion": "12.0.0",
   "version": "1.0.0",
   "android": {
-    "package": "com.mmn.exp"
+    "package": "com.mmn.exp",
+    "config": {
+      "googleMaps": {
+        "apiKey": "AIzaSyDGU3h8sZrUJzOLiM4mZCKm_84Gddjocxw"
+      }
+    }
   },
   "orientation": "portrait",
   "primaryColor": "#3B3738",
