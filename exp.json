@@ -4,6 +4,9 @@
   "slug": "marauders-map-native",
   "sdkVersion": "12.0.0",
   "version": "1.0.0",
+  "android": {
+    "package": "com.mmn.exp"
+  },
   "orientation": "portrait",
   "primaryColor": "#3B3738",
   "iconUrl": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",

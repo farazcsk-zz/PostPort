@@ -20,15 +20,21 @@ class App extends React.Component {
 
   componentWillMount() {
     const { Location, Permissions } = Exponent;
-    Permissions.getAsync(Permissions.REMOTE_NOTIFICATIONS)
+    Permissions.askAsync(Permissions.LOCATION)
     .then((response) => {
       const { status } = response;
       if (status === 'granted') {
         Location.getCurrentPositionAsync({ enableHighAccuracy: true })
         .then((location) => {
           this.setState(location.coords);
+        })
+        .catch((error) => {
+          console.log(error);
         });
       }
+    })
+    .catch((error) => {
+      console.log(error);
     });
   }
 
