@@ -1,8 +1,7 @@
 import { Components } from 'exponent';
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { PropTypes } from 'react';
 
-class Map extends React.Component {
+class MapScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,8 +21,6 @@ class Map extends React.Component {
     });
   }
   componentWillReceiveProps(nextProps) {
-    console.log('current props', this.props);
-    console.log('next props', nextProps);
     if (this.props !== nextProps) {
       this.setState({
         region: {
@@ -38,16 +35,24 @@ class Map extends React.Component {
     return (
       <Components.MapView
         style={{ flex: 1 }}
-        initialRegion={{
-          latitude: this.state.region.latitude,
-          longitude: this.state.region.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
         region={this.state.region}
-      />
+      >
+        <Components.MapView.Marker
+          coordinate={{
+            latitude: this.state.region.latitude,
+            longitude: this.state.region.longitude,
+          }}
+          title="Faraz"
+          description="Testing on a live device is what you really want."
+        />
+      </Components.MapView>
     );
   }
 }
 
-export default Map;
+MapScreen.propTypes = {
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired,
+};
+
+export default MapScreen;
