@@ -1,5 +1,5 @@
 import { Components } from 'exponent';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 class Map extends React.Component {
   constructor(props) {
@@ -21,8 +21,6 @@ class Map extends React.Component {
     });
   }
   componentWillReceiveProps(nextProps) {
-    console.log('current props', this.props);
-    console.log('next props', nextProps);
     if (this.props !== nextProps) {
       this.setState({
         region: {
@@ -40,13 +38,21 @@ class Map extends React.Component {
         region={this.state.region}
       >
         <Components.MapView.Marker
-          coordinate={{ latitude: this.state.region.latitude, longitude: this.state.region.longitude }}
+          coordinate={{
+            latitude: this.state.region.latitude,
+            longitude: this.state.region.longitude,
+          }}
           title="Faraz"
-          description="My first marker..."
+          description="Testing on a live device is what you really want."
         />
       </Components.MapView>
     );
   }
 }
+
+Map.propTypes = {
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired,
+};
 
 export default Map;

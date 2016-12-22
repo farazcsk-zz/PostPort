@@ -13,8 +13,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      latitude: 37.78825,
-      longitude: -122.4324,
+      latitude: 0,
+      longitude: 0,
     };
   }
 
@@ -23,9 +23,7 @@ class App extends React.Component {
     Permissions.getAsync(Permissions.REMOTE_NOTIFICATIONS)
     .then((response) => {
       const { status } = response;
-
       if (status === 'granted') {
-        console.log('yoyoyo');
         Location.getCurrentPositionAsync({ enableHighAccuracy: true })
         .then((location) => {
           this.setState(location.coords);
