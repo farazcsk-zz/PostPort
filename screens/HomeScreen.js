@@ -1,28 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  View,
+  StyleSheet,
   Text,
-  TextInput,
+  View,
 } from 'react-native';
+import Relay from 'react-relay';
+import ViewerQuery from '../relay/ViewerQuery';
+import { createRenderer } from '../relay/RelayUtils';
+import RelayStore from '../relay/RelayStore';
 
-class HomeScreen extends React.Component {
+RelayStore.reset(
+  new Relay.DefaultNetworkLayer('http://localhost:5000/graphql'),
+);
 
-
+class HomeScreen extends Component {
   render() {
     return (
-      <View>
-        <Text> Honey I am home </Text>
-        <TextInput
-          placeholder="Username"
-          underlineColorAndroid="#843131"
-        />
-        <TextInput
-          placeholder="Password"
-          underlineColorAndroid="#843131"
-        />
+      <View style={styles.center}>
+        <Text>User Length: {this.props.viewer.users.edges.length}</Text>
       </View>
     );
   }
 }
 
-export default HomeScreen;
+// Create a Relay.Renderer container
+export default createRenderer(HomeScreen, {
+  queries: ViewerQuery,
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        users(first: 10) {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      }
+    `,
+  },
+});
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

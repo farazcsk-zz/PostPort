@@ -1,8 +1,9 @@
 {
-  "presets": ["babel-preset-exponent"],
-  "env": {
-    "development": {
-      "plugins": ["transform-react-jsx-source"]
-    }
-  }
+  "presets": [
+    "babel-preset-exponent",
+    "react-native-stage-0/decorator-support"
+  ],
+  "plugins": [
+    "./plugins/babelRelayPlugin"
+  ]
 }
