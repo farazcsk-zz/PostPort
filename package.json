@@ -2,7 +2,7 @@
   "name": "marauders-map-native",
   "version": "0.0.0",
   "description": "Hello Exponent!",
-  "author": null,
+  "author": "Faraz Khan",
   "private": true,
   "main": "main.js",
   "dependencies": {
