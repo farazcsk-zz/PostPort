@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import {
   Button,
   ActivityIndicator,
+  Text,
 } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -21,6 +22,7 @@ class MapScreen extends React.Component {
       />,
     },
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +34,7 @@ class MapScreen extends React.Component {
       },
     };
   }
+
   componentWillMount() {
     const { Location, Permissions } = Exponent;
     Permissions.askAsync(Permissions.LOCATION)
@@ -56,6 +59,10 @@ class MapScreen extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.data);
+  }
+
   render() {
     if (this.props.data.loading) {
       return <ActivityIndicator />;
@@ -78,7 +85,7 @@ class MapScreen extends React.Component {
   }
 }
 
-const UserQuery = gql`query($email: String!, $id: String!) {
+const UserQuery = gql`query($email: String!, $id: ID!) {
   User(email: $email, id: $id) {
     firstName,
     lastName
