@@ -22,6 +22,8 @@ class MapScreen extends React.Component {
     super(props);
     this.state = {
       region: {
+        latitude: 0,
+        longitude: 0,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
@@ -52,7 +54,6 @@ class MapScreen extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <Components.MapView
         style={{ flex: 1 }}
@@ -70,10 +71,5 @@ class MapScreen extends React.Component {
     );
   }
 }
-
-MapScreen.propTypes = {
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
-};
 
 export default MapScreen;
