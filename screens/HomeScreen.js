@@ -26,28 +26,20 @@ class HomeScreen extends React.Component {
           <Card styles={card}>
             <CardTitle>
               <Text style={styles.welcome}>
-                W E L C O M E
+                WELCOME
               </Text>
             </CardTitle>
             <Text style={styles.instructions}>
               Please login to continue
             </Text>
             <TextInput
-              style={{
-                width: 250,
-                height: 40,
-                margin: 20,
-              }}
+              style={styles.input}
               underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Username"
             />
             <TextInput
-              style={{
-                width: 250,
-                height: 40,
-                margin: 20,
-              }}
+              style={styles.input}
               underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Password"
@@ -82,7 +74,14 @@ const card = {
 };
 
 const styles = StyleSheet.create({
+  input: {
+    fontFamily: 'roboto-bold',
+    width: 250,
+    height: 40,
+    margin: 20,
+  },
   button: {
+    fontFamily: 'roboto-regular',
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: '#843131',
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
+    fontFamily: 'roboto-mono-regular',
     fontSize: 20,
     textAlign: 'center',
     color: '#3B3738',
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
 
   instructions: {
+    fontFamily: 'roboto-italic',
     textAlign: 'center',
     color: '#3B3738',
     marginBottom: 5,
