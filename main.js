@@ -1,56 +1,37 @@
 import Exponent from 'exponent';
 import React from 'react';
+import { ApolloProvider } from 'react-apollo';
 import {
   StyleSheet,
   View,
-  Button,
 } from 'react-native';
+import {
+  NavigationProvider,
+  StackNavigation,
+} from '@exponent/ex-navigation';
 
-import HomeScreen from './screens/HomeScreen';
-import MapScreen from './screens/MapScreen';
+import client from './apollo';
+import store from './state/store';
+import Router from './navigation/Router';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      latitude: 0,
-      longitude: 0,
-    };
-  }
-
-  componentWillMount() {
-    const { Location, Permissions } = Exponent;
-    Permissions.askAsync(Permissions.LOCATION)
-    .then((response) => {
-      const { status } = response;
-      if (status === 'granted') {
-        Location.getCurrentPositionAsync({ enableHighAccuracy: true })
-        .then((location) => {
-          this.setState(location.coords);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
   render() {
     return (
-      <View style={styles.container}>
-        <HomeScreen />
-        <Button
-          title="Click me!"
-          color="#05A5D1"
-          onPress={() => {
-            console.log('button press');
-          }}
-        />
-      </View>
+      <ApolloProvider client={client} store={store}>
+        <View style={styles.container}>
+          <NavigationProvider router={Router}>
+            <StackNavigation
+              initialRoute="home"
+              defaultRouteConfig={{
+                navigationBar: {
+                  backgroundColor: '#843131',
+                  tintColor: '#fafafa',
+                },
+              }}
+            />
+          </NavigationProvider>
+        </View>
+      </ApolloProvider>
     );
   }
 }
@@ -58,7 +39,7 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fafafa',
   },
 });
 
