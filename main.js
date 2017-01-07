@@ -11,12 +11,13 @@ import {
 } from '@exponent/ex-navigation';
 
 import client from './apollo';
+import store from './state/store';
 import Router from './navigation/Router';
 
 class App extends React.Component {
   render() {
     return (
-      <ApolloProvider client={client}>
+      <ApolloProvider client={client} store={store}>
         <View style={styles.container}>
           <NavigationProvider router={Router}>
             <StackNavigation
