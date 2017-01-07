@@ -2,14 +2,19 @@ import React from 'react';
 import {
   View,
   Text,
+  Button,
   TextInput,
-  StyleSheet,
 } from 'react-native';
 
 class HomeScreen extends React.Component {
+  static route = {
+    navigationBar: {
+      title: 'Home',
+    },
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <Text> Honey I am home </Text>
         <TextInput
           placeholder="Username"
@@ -19,16 +24,16 @@ class HomeScreen extends React.Component {
           placeholder="Password"
           underlineColorAndroid="#843131"
         />
+        <Button
+          title="Click me!"
+          color="#05A5D1"
+          onPress={() => {
+            this.props.navigator.push('map');
+          }}
+        />
       </View>
     );
   }
 }
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
