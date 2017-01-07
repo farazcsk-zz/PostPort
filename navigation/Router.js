@@ -3,9 +3,9 @@ import {
 } from '@exponent/ex-navigation';
 
 import HomeScreen from '../screens/HomeScreen';
-import MapScreen from '../screens/MapScreen';
+import { MapWithData } from '../screens/MapScreen';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
-  map: () => MapScreen,
+  map: () => MapWithData,
 }));

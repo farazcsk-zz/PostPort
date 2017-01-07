@@ -2,7 +2,10 @@ import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 import {
   Button,
+  ActivityIndicator,
 } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class MapScreen extends React.Component {
   static route = {
@@ -54,6 +57,9 @@ class MapScreen extends React.Component {
   }
 
   render() {
+    if (this.props.data.loading) {
+      return <ActivityIndicator />;
+    }
     return (
       <Components.MapView
         style={{ flex: 1 }}
@@ -72,4 +78,18 @@ class MapScreen extends React.Component {
   }
 }
 
-export default MapScreen;
+const UserQuery = gql`query($email: String!, $id: String!) {
+  User(email: $email, id: $id) {
+    firstName,
+    lastName
+  }
+}`;
+
+export const MapWithData = graphql(UserQuery, {
+  options: {
+    variables: {
+      email: 'user@email.com',
+      id: 'cixnkhx9oidyh0134d7hiznu1',
+    },
+  },
+})(MapScreen);
