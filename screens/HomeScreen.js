@@ -1,4 +1,10 @@
 import React from 'react';
+import * as Animatable from 'react-native-animatable';
+import {
+  Card,
+  CardTitle,
+  CardAction,
+} from 'react-native-card-view';
 import {
   ScrollView,
   StyleSheet,
@@ -6,12 +12,6 @@ import {
   Text,
   TextInput,
 } from 'react-native';
-import {
-  Card,
-  CardTitle,
-  CardAction,
-} from 'react-native-card-view';
-import * as Animatable from 'react-native-animatable';
 
 class HomeScreen extends React.Component {
   static route = {
@@ -64,7 +64,7 @@ class HomeScreen extends React.Component {
                 title="LOGIN"
                 color="#3B3738"
                 onPress={() => {
-                  this.props.navigator.push('home');
+                  this.props.navigator.push('map');
                 }}
               />
             </CardAction>

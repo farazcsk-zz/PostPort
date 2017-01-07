@@ -1,10 +1,21 @@
 import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
+import {
+  Button,
+} from 'react-native';
 
 class MapScreen extends React.Component {
   static route = {
     navigationBar: {
       title: 'MAP',
+      renderRight: (route, props) => <Button
+        title="Logout"
+        color="#3B3738"
+        onPress={() => {
+          // this.props.navigator.push('home');
+          console.log(route,props);
+        }}
+      />,
     },
   }
   constructor(props) {
