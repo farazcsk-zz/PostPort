@@ -55,6 +55,10 @@ class App extends React.Component {
                   navigationBar: {
                     backgroundColor: '#843131',
                     tintColor: '#fafafa',
+                    titleStyle: {
+                      fontFamily: 'roboto-regular',
+                    },
+                    color: '#fafafa',
                   },
                 }}
               />

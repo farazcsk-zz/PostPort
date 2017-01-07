@@ -33,21 +33,13 @@ class HomeScreen extends React.Component {
               Please login to continue
             </Text>
             <TextInput
-              style={{
-                width: 250,
-                height: 40,
-                margin: 20,
-              }}
+              style={styles.input}
               underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Username"
             />
             <TextInput
-              style={{
-                width: 250,
-                height: 40,
-                margin: 20,
-              }}
+              style={styles.input}
               underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Password"
@@ -70,7 +62,6 @@ class HomeScreen extends React.Component {
 }
 const card = {
   card: {
-    fontFamily: 'roboto-regular',
     marginTop: 100,
     margin: 20,
     flex: 1,
@@ -83,7 +74,14 @@ const card = {
 };
 
 const styles = StyleSheet.create({
+  input: {
+    fontFamily: 'roboto-regular',
+    width: 250,
+    height: 40,
+    margin: 20,
+  },
   button: {
+    fontFamily: 'roboto-regular',
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: '#843131',
@@ -103,6 +101,7 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
+    fontFamily: 'roboto-regular',
     fontSize: 20,
     textAlign: 'center',
     color: '#3B3738',
@@ -110,6 +109,7 @@ const styles = StyleSheet.create({
   },
 
   instructions: {
+    fontFamily: 'roboto-regular',
     textAlign: 'center',
     color: '#3B3738',
     marginBottom: 5,
