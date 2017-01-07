@@ -3,14 +3,13 @@ import {
   View,
   Text,
   TextInput,
+  StyleSheet,
 } from 'react-native';
 
 class HomeScreen extends React.Component {
-
-
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text> Honey I am home </Text>
         <TextInput
           placeholder="Username"
@@ -26,3 +25,10 @@ class HomeScreen extends React.Component {
 }
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
