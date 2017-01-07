@@ -19,7 +19,15 @@ class App extends React.Component {
       <ApolloProvider client={client}>
         <View style={styles.container}>
           <NavigationProvider router={Router}>
-            <StackNavigation initialRoute="home" />
+            <StackNavigation
+              initialRoute="home"
+              defaultRouteConfig={{
+                navigationBar: {
+                  backgroundColor: '#843131',
+                  tintColor: '#fff',
+                },
+              }}
+            />
           </NavigationProvider>
         </View>
       </ApolloProvider>

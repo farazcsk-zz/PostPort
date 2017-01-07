@@ -2,6 +2,11 @@ import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 
 class MapScreen extends React.Component {
+  static route = {
+    navigationBar: {
+      title: 'MAP',
+    },
+  }
   constructor(props) {
     super(props);
     this.state = {
