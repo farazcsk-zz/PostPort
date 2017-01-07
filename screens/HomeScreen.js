@@ -70,6 +70,7 @@ class HomeScreen extends React.Component {
 }
 const card = {
   card: {
+    fontFamily: 'roboto-regular',
     marginTop: 100,
     margin: 20,
     flex: 1,
