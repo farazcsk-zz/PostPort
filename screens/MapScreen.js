@@ -1,4 +1,4 @@
-import { Components } from 'exponent';
+import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 
 class MapScreen extends React.Component {
@@ -12,26 +12,31 @@ class MapScreen extends React.Component {
     };
   }
   componentWillMount() {
-    this.setState({
-      region: {
-        ...this.state.region,
-        latitude: this.props.latitude,
-        longitude: this.props.longitude,
-      },
+    const { Location, Permissions } = Exponent;
+    Permissions.askAsync(Permissions.LOCATION)
+    .then((response) => {
+      const { status } = response;
+      if (status === 'granted') {
+        Location.getCurrentPositionAsync({ enableHighAccuracy: true })
+        .then((location) => {
+          this.setState({
+            region: {
+              ...location.coords,
+            },
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      this.setState({
-        region: {
-          ...this.state.region,
-          latitude: nextProps.latitude,
-          longitude: nextProps.longitude,
-        },
-      });
-    }
-  }
+
   render() {
+    console.log(this.state);
     return (
       <Components.MapView
         style={{ flex: 1 }}

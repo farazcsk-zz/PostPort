@@ -14,35 +14,6 @@ import client from './apollo';
 import Router from './navigation/Router';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      latitude: 0,
-      longitude: 0,
-    };
-  }
-
-  componentWillMount() {
-    const { Location, Permissions } = Exponent;
-    Permissions.askAsync(Permissions.LOCATION)
-    .then((response) => {
-      const { status } = response;
-      if (status === 'granted') {
-        Location.getCurrentPositionAsync({ enableHighAccuracy: true })
-        .then((location) => {
-          this.setState(location.coords);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
   render() {
     return (
       <ApolloProvider client={client}>

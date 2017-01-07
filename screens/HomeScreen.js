@@ -25,7 +25,7 @@ class HomeScreen extends React.Component {
           underlineColorAndroid="#843131"
         />
         <Button
-          title="Click me!"
+          title="Login"
           color="#05A5D1"
           onPress={() => {
             this.props.navigator.push('map');
