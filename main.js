@@ -6,6 +6,7 @@ import {
   Button,
 } from 'react-native';
 
+import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
 
 class App extends React.Component {
@@ -41,10 +42,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapScreen
-          latitude={this.state.latitude}
-          longitude={this.state.longitude}
-        />
+        <HomeScreen />
         <Button
           title="Click me!"
           color="#05A5D1"
