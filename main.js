@@ -29,7 +29,11 @@ class App extends React.Component {
       await cacheAssetsAsync({
         images: [],
         fonts: [
+          { 'roboto-light': require('./assets/fonts/Roboto-Light.ttf') },
           { 'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf') },
+          { 'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf') },
+          { 'roboto-italic': require('./assets/fonts/Roboto-Italic.ttf') },
+          { 'roboto-mono-regular': require('./assets/fonts/RobotoMono-Regular.ttf') },
         ],
       });
     } catch (e) {
@@ -56,7 +60,7 @@ class App extends React.Component {
                     backgroundColor: '#843131',
                     tintColor: '#fafafa',
                     titleStyle: {
-                      fontFamily: 'roboto-regular',
+                      fontFamily: 'roboto-mono-regular',
                     },
                     color: '#fafafa',
                   },

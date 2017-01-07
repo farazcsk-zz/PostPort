@@ -26,7 +26,7 @@ class HomeScreen extends React.Component {
           <Card styles={card}>
             <CardTitle>
               <Text style={styles.welcome}>
-                W E L C O M E
+                WELCOME
               </Text>
             </CardTitle>
             <Text style={styles.instructions}>
@@ -75,7 +75,7 @@ const card = {
 
 const styles = StyleSheet.create({
   input: {
-    fontFamily: 'roboto-regular',
+    fontFamily: 'roboto-bold',
     width: 250,
     height: 40,
     margin: 20,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
-    fontFamily: 'roboto-regular',
+    fontFamily: 'roboto-mono-regular',
     fontSize: 20,
     textAlign: 'center',
     color: '#3B3738',
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
 
   instructions: {
-    fontFamily: 'roboto-regular',
+    fontFamily: 'roboto-italic',
     textAlign: 'center',
     color: '#3B3738',
     marginBottom: 5,
