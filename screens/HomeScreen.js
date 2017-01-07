@@ -34,27 +34,21 @@ class HomeScreen extends React.Component {
             </Text>
             <TextInput
               style={{
+                width: 250,
                 height: 40,
-                borderColor:
-                'transparent',
-                borderBottomColor: '#3B3738',
-                borderWidth: 1,
-                margin: 10,
+                margin: 20,
               }}
-              multiline
+              underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Username"
             />
             <TextInput
               style={{
+                width: 250,
                 height: 40,
-                borderColor:
-                'transparent',
-                borderBottomColor: '#3B3738',
-                borderWidth: 1,
-                margin: 10,
+                margin: 20,
               }}
-              multiline
+              underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Password"
             />
