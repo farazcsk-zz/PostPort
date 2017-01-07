@@ -70,7 +70,7 @@ class HomeScreen extends React.Component {
 }
 const card = {
   card: {
-    marginTop: 50,
+    marginTop: 100,
     margin: 20,
     flex: 1,
     justifyContent: 'center',
