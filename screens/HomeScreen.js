@@ -22,7 +22,7 @@ class HomeScreen extends React.Component {
         />
         <Button
           title="Login"
-          color="#05A5D1"
+          color="#3B3738"
           onPress={() => {
             this.props.navigator.push('map');
           }}

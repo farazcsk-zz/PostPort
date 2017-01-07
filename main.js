@@ -24,7 +24,7 @@ class App extends React.Component {
               defaultRouteConfig={{
                 navigationBar: {
                   backgroundColor: '#843131',
-                  tintColor: '#fff',
+                  tintColor: '#fafafa',
                 },
               }}
             />

@@ -13,7 +13,7 @@
     }
   },
   "orientation": "portrait",
-  "androidStatusBarColor" : "#843131",
+  "androidStatusBarColor" : "#3B3738",
   "androidHideExponentNotificationInShellApp": true,
   "primaryColor": "#843131",
   "iconUrl": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
