@@ -87,7 +87,10 @@ class Home extends React.Component {
             <CardAction>
               {this.state.loggingIn
                 ?
-                  <ActivityIndicator />
+                  <ActivityIndicator
+                    size="large"
+                    color="#843131"
+                  />
                   :
                   <Button
                     containerStyle={styles.button}
