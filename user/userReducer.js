@@ -16,19 +16,19 @@ const user = (state = initialState, action) => {
     case 'UPDATE_PASSWORD':
       return {
         ...state,
-        email: action.password,
+        password: action.password,
       };
 
     case 'UPDATE_FIRSTNAME':
       return {
         ...state,
-        temp: tempUser(state.temp, action),
+        firstName: action.firstName,
       };
 
     case 'UPDATE_LASTNAME':
       return {
         ...state,
-        temp: tempUser(state.temp, action),
+        lastName: action.lastName,
       };
 
     case 'LOGOUT':
