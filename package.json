@@ -5,6 +5,9 @@
   "author": null,
   "private": true,
   "main": "main.js",
+  "scripts": {
+    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
+  },
   "dependencies": {
     "@exponent/ex-navigation": "^2.7.1",
     "@exponent/vector-icons": "~2.0.3",
@@ -30,6 +33,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-prefer-object-spread": "^1.1.0",
-    "eslint-plugin-react": "^6.6.0"
+    "eslint-plugin-react": "^6.6.0",
+    "remote-redux-devtools": "^0.5.7",
+    "remote-redux-devtools-on-debugger": "^0.7.0"
   }
 }

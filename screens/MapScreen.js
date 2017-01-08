@@ -78,8 +78,8 @@ class Map extends React.Component {
             latitude: this.state.region.latitude,
             longitude: this.state.region.longitude,
           }}
-          title="Faraz"
-          description="Testing on a live device is what you really want."
+          title="Username"
+          description="This will be some post text."
         />
       </Components.MapView>
     );

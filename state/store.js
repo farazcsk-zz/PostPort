@@ -1,5 +1,7 @@
+import { Platform } from 'react-native';
 import { createNavigationEnabledStore, NavigationReducer } from '@exponent/ex-navigation';
-import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import devTools from 'remote-redux-devtools';
 
 import client from '../apollo';
 
@@ -15,6 +17,11 @@ const store = createStoreWithNavigation(
   }),
   compose(
     applyMiddleware(client.middleware()),
+    devTools({
+      name: Platform.OS,
+      hostname: 'localhost',
+      port: 5678,
+    }),
   ),
 );
 
