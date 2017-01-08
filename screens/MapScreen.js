@@ -93,7 +93,7 @@ const UserQuery = gql`query($email: String!, $id: ID!) {
   }
 }`;
 
-export const MapScreen = graphql(UserQuery, {
+export default graphql(UserQuery, {
   options: {
     variables: {
       email: 'user@email.com',
