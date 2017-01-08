@@ -22,7 +22,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Animatable.View animation="bounceInDown" duration={550}>
+        <Animatable.View animation="bounceInDown" duration={600}>
           <Card styles={card}>
             <CardTitle>
               <Text style={styles.welcome}>
@@ -60,6 +60,7 @@ class HomeScreen extends React.Component {
     );
   }
 }
+
 const card = {
   card: {
     marginTop: 100,
@@ -79,21 +80,6 @@ const styles = StyleSheet.create({
     width: 250,
     height: 40,
     margin: 20,
-  },
-  button: {
-    fontFamily: 'roboto-regular',
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: '#843131',
-    padding: 10,
-    margin: 10,
-    shadowColor: 'rgba(0, 0, 0, 0.117647)',
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 2,
-    },
   },
   container: {
     paddingTop: 100,

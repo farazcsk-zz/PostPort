@@ -1,6 +1,8 @@
 import Exponent from 'exponent';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
+import {
+  ApolloProvider,
+} from 'react-apollo';
 import {
   StyleSheet,
   View,

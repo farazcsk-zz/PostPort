@@ -8,7 +8,7 @@ import {
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-class MapScreen extends React.Component {
+class Map extends React.Component {
   static route = {
     navigationBar: {
       title: 'MAP',
@@ -45,6 +45,7 @@ class MapScreen extends React.Component {
         .then((location) => {
           this.setState({
             region: {
+              ...this.state.region,
               ...location.coords,
             },
           });
@@ -92,11 +93,11 @@ const UserQuery = gql`query($email: String!, $id: ID!) {
   }
 }`;
 
-export const MapWithData = graphql(UserQuery, {
+export const MapScreen = graphql(UserQuery, {
   options: {
     variables: {
       email: 'user@email.com',
       id: 'cixnkhx9oidyh0134d7hiznu1',
     },
   },
-})(MapScreen);
+})(Map);
