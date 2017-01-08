@@ -3,6 +3,8 @@ import { createNavigationEnabledStore, NavigationReducer } from '@exponent/ex-na
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import devTools from 'remote-redux-devtools';
 
+import user from '../user/userReducer';
+
 import client from '../apollo';
 
 const createStoreWithNavigation = createNavigationEnabledStore({
@@ -14,6 +16,7 @@ const store = createStoreWithNavigation(
   combineReducers({
     navigation: NavigationReducer,
     apollo: client.reducer(),
+    user,
   }),
   compose(
     applyMiddleware(client.middleware()),
