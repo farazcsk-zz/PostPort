@@ -78,8 +78,8 @@ class Map extends React.Component {
             latitude: this.state.region.latitude,
             longitude: this.state.region.longitude,
           }}
-          title="Faraz"
-          description="Testing on a live device is what you really want."
+          title="Username"
+          description="This will be some post text."
         />
       </Components.MapView>
     );
@@ -93,11 +93,11 @@ const UserQuery = gql`query($email: String!, $id: ID!) {
   }
 }`;
 
-export const MapScreen = graphql(UserQuery, {
+export default graphql(UserQuery, {
   options: {
     variables: {
-      email: 'user@email.com',
-      id: 'cixnkhx9oidyh0134d7hiznu1',
+      email: 'test@email.com',
+      id: 'cixony0w379kk0171yp5w75fv',
     },
   },
 })(Map);
