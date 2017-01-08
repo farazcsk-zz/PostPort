@@ -14,6 +14,7 @@ import {
   Text,
   TextInput,
   ActivityIndicator,
+  AsyncStorage,
 } from 'react-native';
 
 class Home extends React.Component {
@@ -28,10 +29,10 @@ class Home extends React.Component {
 
   handleLogin = () => {
     const { email, password } = this.props.user;
+
     this.setState({
       loggingIn: true,
     });
-    console.log('loggin in...');
     this.props.mutate({ variables: { email, password } })
       .then((data) => {
         if (data.data.signinUser.token) {
@@ -40,12 +41,14 @@ class Home extends React.Component {
           });
           this.props.setUser({
             user: {
-              email,
-              password,
+              ...data.data.signinUser.user,
               token: data.data.signinUser.token,
             },
           });
-          this.props.navigator.push('map');
+          AsyncStorage.setItem('token', data.data.signinUser.token)
+            .then(() => {
+              this.props.navigator.push('map');
+            });
         }
       });
   }
@@ -106,6 +109,12 @@ const loginMutation = gql`
   mutation signinUser($email: String!, $password: String!) {
     signinUser(email: { email: $email, password: $password }){
       token
+      user {
+        id,
+        firstName,
+        lastName,
+        email,
+      }
     }
   }
 `;

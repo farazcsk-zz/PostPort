@@ -96,8 +96,8 @@ const UserQuery = gql`query($email: String!, $id: ID!) {
 export default graphql(UserQuery, {
   options: {
     variables: {
-      email: 'user@email.com',
-      id: 'cixnkhx9oidyh0134d7hiznu1',
+      email: 'test@email.com',
+      id: 'cixony0w379kk0171yp5w75fv',
     },
   },
 })(Map);
