@@ -13,9 +13,13 @@ import {
   Button,
   Text,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 
 class Home extends React.Component {
+  state = {
+    loggingIn: false,
+  };
   static route = {
     navigationBar: {
       title: 'Login',
@@ -24,11 +28,25 @@ class Home extends React.Component {
 
   handleLogin = () => {
     const { email, password } = this.props.user;
-
+    this.setState({
+      loggingIn: true,
+    });
     console.log('loggin in...');
     this.props.mutate({ variables: { email, password } })
-      .then(() => {
-        console.log(this.props);
+      .then((data) => {
+        if (data.data.signinUser.token) {
+          this.setState({
+            loggingIn: false,
+          });
+          this.props.setUser({
+            user: {
+              email,
+              password,
+              token: data.data.signinUser.token,
+            },
+          });
+          this.props.navigator.push('map');
+        }
       });
   }
 
@@ -64,14 +82,19 @@ class Home extends React.Component {
               }}
             />
             <CardAction>
-              <Button
-                containerStyle={styles.button}
-                title="LOGIN"
-                color="#3B3738"
-                onPress={() => {
-                  this.handleLogin();
-                }}
-              />
+              {this.state.loggingIn
+                ?
+                  <ActivityIndicator />
+                  :
+                  <Button
+                    containerStyle={styles.button}
+                    title="LOGIN"
+                    color="#3B3738"
+                    onPress={() => {
+                      this.handleLogin();
+                    }}
+                  />
+              }
             </CardAction>
           </Card>
         </Animatable.View>

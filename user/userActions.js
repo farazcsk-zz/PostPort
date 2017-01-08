@@ -1,6 +1,6 @@
 const setUser = ({ user }) => {
   return {
-    type: 'SET_TEMP_USER',
+    type: 'SET_USER',
     user,
   };
 };

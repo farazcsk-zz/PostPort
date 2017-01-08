@@ -3,10 +3,17 @@ const initialState = {
   password: '',
   firstName: '',
   lastName: '',
+  token: null,
 };
 
 const user = (state = initialState, action) => {
   switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        ...action.user,
+      };
+
     case 'UPDATE_EMAIL':
       return {
         ...state,
