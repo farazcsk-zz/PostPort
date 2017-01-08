@@ -1,5 +1,7 @@
 import React from 'react';
 import * as Animatable from 'react-native-animatable';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 import {
   Card,
   CardTitle,
@@ -19,6 +21,17 @@ class Home extends React.Component {
       title: 'Login',
     },
   }
+
+  handleLogin = () => {
+    const { email, password } = this.props.user;
+
+    console.log('loggin in...');
+    this.props.mutate({ variables: { email, password } })
+      .then(() => {
+        console.log(this.props);
+      });
+  }
+
   render() {
     return (
       <ScrollView>
@@ -37,14 +50,18 @@ class Home extends React.Component {
               underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Email"
-              onChangeText={(email) => this.props.updateEmail({ email })}
+              onChangeText={(email) => {
+                this.props.updateEmail({ email });
+              }}
             />
             <TextInput
               style={styles.input}
               underlineColorAndroid="#3B3738"
               autoCapitalize="none"
               placeholder="Password"
-              onChangeText={(password) => this.props.updatePassword({ password })}
+              onChangeText={(password) => {
+                this.props.updatePassword({ password });
+              }}
             />
             <CardAction>
               <Button
@@ -52,7 +69,7 @@ class Home extends React.Component {
                 title="LOGIN"
                 color="#3B3738"
                 onPress={() => {
-                  this.props.navigator.push('map');
+                  this.handleLogin();
                 }}
               />
             </CardAction>
@@ -62,6 +79,13 @@ class Home extends React.Component {
     );
   }
 }
+const loginMutation = gql`
+  mutation signinUser($email: String!, $password: String!) {
+    signinUser(email: { email: $email, password: $password }){
+      token
+    }
+  }
+`;
 
 const card = {
   card: {
@@ -104,6 +128,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default graphql(loginMutation)(Home);
+
 
 
