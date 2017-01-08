@@ -5,9 +5,6 @@
   "author": null,
   "private": true,
   "main": "main.js",
-  "scripts": {
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
-  },
   "dependencies": {
     "@exponent/ex-navigation": "^2.7.1",
     "@exponent/vector-icons": "~2.0.3",
