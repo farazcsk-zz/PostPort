@@ -16,7 +16,7 @@ import {
 class HomeScreen extends React.Component {
   static route = {
     navigationBar: {
-      title: 'Home',
+      title: 'Login',
     },
   }
   render() {
@@ -26,7 +26,7 @@ class HomeScreen extends React.Component {
           <Card styles={card}>
             <CardTitle>
               <Text style={styles.welcome}>
-                WELCOME
+                Welcome
               </Text>
             </CardTitle>
             <Text style={styles.instructions}>
