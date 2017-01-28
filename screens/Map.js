@@ -2,6 +2,7 @@ import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 import {
   Button,
+  ActivityIndicator,
 } from 'react-native';
 
 class Map extends React.Component {
@@ -58,21 +59,30 @@ class Map extends React.Component {
   }
 
   render() {
-    return (
-      <Components.MapView
-        style={{ flex: 1 }}
-        region={this.state.region}
-      >
-        <Components.MapView.Marker
-          coordinate={{
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude,
-          }}
-          title="Username"
-          description="This will be some post text."
+    if (this.props.user.isLoading) {
+      return (
+        <ActivityIndicator
+          size="large"
+          color="#262626"
         />
-      </Components.MapView>
-    );
+      );
+    } else {
+      return (
+        <Components.MapView
+          style={{ flex: 1 }}
+          region={this.state.region}
+        >
+          <Components.MapView.Marker
+            coordinate={{
+              latitude: this.state.region.latitude,
+              longitude: this.state.region.longitude,
+            }}
+            title="Username"
+            description="This will be some post text."
+          />
+        </Components.MapView>
+      );
+    }
   }
 }
 

@@ -4,9 +4,14 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
+    case 'GET_USER_REQUEST':
+      return {
+        isLoading: true,
+      };
+
     case 'GET_USER_SUCCESS':
       return {
-        ...state,
+        isLoading: false,
         ...action.user,
       };
 
