@@ -1,7 +1,7 @@
 import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 import {
-  Button,
+  Image,
   ActivityIndicator,
 } from 'react-native';
 
@@ -17,12 +17,9 @@ class Map extends React.Component {
   static route = {
     navigationBar: {
       title: 'MAP',
-      renderRight: (route, props) => <Button
-        title="Logout"
-        color="#262626"
-        onPress={() => {
-          props.navigator.push('home');
-        }}
+      renderRight: (route, props) => <Image
+        source={{ uri: 'https://scontent.cdninstagram.com/t51.2885-19/s150x150/12301211_1510776235889447_1893314790_a.jpg' }}
+        style={{ height: 77, width: 77, borderWidth: 2, borderColor: '#dbdbdb', borderRadius: 50 }}
       />,
     },
   }
