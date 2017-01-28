@@ -1,8 +1,10 @@
-const initialState = {};
+const initialState = {
+  isLoading: false,
+};
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_USER':
+    case 'GET_USER_SUCCESS':
       return {
         ...state,
         ...action.user,

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 
-import { setUser } from '../user/userActions';
 import Home from './Home';
 
 const mapStateToProps = (state) => {
@@ -9,6 +8,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  setUser,
-})(Home);
+export default connect(mapStateToProps, {})(Home);
