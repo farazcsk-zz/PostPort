@@ -4,7 +4,6 @@ import {
   AsyncStorage,
   View,
   WebView,
-  ActivityIndicator,
 } from 'react-native';
 
 const propTypes = {
@@ -16,7 +15,10 @@ const propTypes = {
 
 class Home extends React.Component {
   static navigationOptions = {
-    title: 'Home',
+    tabBar: {
+      label: 'Home',
+      tabBarPosition: 'bottom',
+    },
   }
 
   state = {

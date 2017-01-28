@@ -14,7 +14,10 @@ const propTypes = {
 
 class Map extends React.Component {
   static navigationOptions = {
-    title: 'Map',
+    tabBar: {
+      label: 'Map',
+      tabBarPosition: 'bottom',
+    },
   }
 
   constructor(props) {
