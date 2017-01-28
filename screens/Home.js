@@ -21,7 +21,7 @@ import {
 
 class Home extends React.Component {
   state = {
-    loggingIn: false,
+    loggingIn: true,
   };
   static route = {
     navigationBar: {
@@ -37,6 +37,10 @@ class Home extends React.Component {
       AsyncStorage.setItem('accessToken', accessToken)
         .then(() => {
           console.log('logged in');
+          this.setState({
+            ...this.state,
+            loggingIn: false,
+          });
         });
     }
   };
@@ -46,11 +50,13 @@ class Home extends React.Component {
       <ScrollView>
         <Animatable.View animation="bounceInDown" duration={600}>
           <View>
-            <WebView
-              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
-              style={{ marginTop: 50, height: 500 }}
-              onNavigationStateChange={this.onNavigationStateChange}
-            />
+            {this.state.loggingIn &&
+              <WebView
+                source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
+                style={{ marginTop: 50, height: 500 }}
+                onNavigationStateChange={this.onNavigationStateChange}
+              />
+            }
           </View>
         </Animatable.View>
       </ScrollView>
