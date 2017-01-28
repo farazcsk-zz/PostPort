@@ -59,12 +59,12 @@ class App extends React.Component {
                 initialRoute="home"
                 defaultRouteConfig={{
                   navigationBar: {
-                    backgroundColor: '#843131',
-                    tintColor: '#fafafa',
+                    backgroundColor: '#fafafa',
+                    tintColor: '#262626',
                     titleStyle: {
-                      fontFamily: 'roboto-mono-regular',
+                      fontFamily: 'roboto-bold',
                     },
-                    color: '#fafafa',
+                    color: '#262626',
                   },
                 }}
               />
