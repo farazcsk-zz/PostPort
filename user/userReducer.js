@@ -1,41 +1,30 @@
 const initialState = {
-  email: '',
-  password: '',
-  firstName: '',
-  lastName: '',
-  token: null,
+  isLoading: false,
+  posts: [],
 };
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_USER':
+    case 'GET_USER_REQUEST':
       return {
-        ...state,
+        isLoading: true,
+      };
+
+    case 'GET_USER_SUCCESS':
+      return {
+        isLoading: false,
         ...action.user,
       };
 
-    case 'UPDATE_EMAIL':
+    case 'GET_POSTS_REQUEST':
       return {
-        ...state,
-        email: action.email,
+        isLoading: true,
       };
 
-    case 'UPDATE_PASSWORD':
+    case 'GET_POSTS_SUCCESS':
       return {
-        ...state,
-        password: action.password,
-      };
-
-    case 'UPDATE_FIRSTNAME':
-      return {
-        ...state,
-        firstName: action.firstName,
-      };
-
-    case 'UPDATE_LASTNAME':
-      return {
-        ...state,
-        lastName: action.lastName,
+        isLoading: false,
+        posts: action.posts,
       };
 
     case 'LOGOUT':

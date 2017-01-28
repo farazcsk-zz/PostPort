@@ -1,42 +1,52 @@
-const setUser = ({ user }) => {
-  return {
-    type: 'SET_USER',
-    user,
+import { AsyncStorage } from 'react-native';
+
+
+const getUser = () => {
+  return (dispatch) => {
+    dispatch({ type: 'GET_USER_REQUEST' });
+
+    AsyncStorage.getItem('accessToken')
+      .then((data) => {
+        const accessToken = data;
+        fetch(`https://api.instagram.com/v1/users/self/?access_token=${accessToken}`)
+          .then(response => response.json())
+          .then((responseJson) => {
+            return dispatch({
+              type: 'GET_USER_SUCCESS',
+              user: responseJson.data,
+            });
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 };
 
-const updatePassword = ({ password }) => {
-  return {
-    type: 'UPDATE_PASSWORD',
-    password,
-  };
-};
+const getPosts = () => {
+  return (dispatch) => {
+    dispatch({ type: 'GET_POSTS_REQUEST' });
 
-const updateEmail = ({ email }) => {
-  return {
-    type: 'UPDATE_EMAIL',
-    email,
-  };
-};
-
-const updateFirstName = ({ firstName }) => {
-  return {
-    type: 'UPDATE_FIRST_NAME',
-    firstName,
-  };
-};
-
-const updateLastName = ({ lastName }) => {
-  return {
-    type: 'UPDATE_LAST_NAME',
-    lastName,
+    AsyncStorage.getItem('accessToken')
+      .then((data) => {
+        const accessToken = data;
+        fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}`)
+          .then(response => response.json())
+          .then((responseJson) => {
+            console.log(responseJson);
+            return dispatch({
+              type: 'GET_POSTS_SUCCESS',
+              posts: responseJson.data,
+            });
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 };
 
 export {
-  setUser,
-  updatePassword,
-  updateEmail,
-  updateFirstName,
-  updateLastName,
+  getUser,
+  getPosts,
 };

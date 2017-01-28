@@ -6,21 +6,21 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-  "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
+    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
   },
   "dependencies": {
     "@exponent/ex-navigation": "^2.7.1",
     "@exponent/vector-icons": "~2.0.3",
-    "apollo-client": "^0.6.0",
     "exponent": "^13.1.0",
-    "graphql-tag": "^1.2.1",
+    "isomorphic-fetch": "^2.2.1",
     "react": "~15.4.0",
-    "react-apollo": "^0.8.1",
     "react-native": "https://github.com/exponent/react-native/archive/sdk-13.0.3.tar.gz",
     "react-native-animatable": "^1.1.0",
     "react-native-card-view": "0.0.3",
+    "react-navigation": "^1.0.0-beta.1",
     "react-redux": "^5.0.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",

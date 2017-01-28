@@ -1,24 +1,23 @@
 import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import {
-  Button,
   ActivityIndicator,
 } from 'react-native';
-import gql from 'graphql-tag';
+
+const propTypes = {
+  user: PropTypes.shape({
+    isLoading: PropTypes.bool.isRequired,
+    full_name: PropTypes.string,
+  }).isRequired,
+  getUser: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
+};
 
 class Map extends React.Component {
-  static route = {
-    navigationBar: {
-      title: 'MAP',
-      renderRight: (route, props) => <Button
-        title="Logout"
-        color="#3B3738"
-        onPress={() => {
-          // this.props.navigator.push('home');
-          console.log(route,props);
-        }}
-      />,
+  static navigationOptions = {
+    tabBar: {
+      label: 'Map',
+      tabBarPosition: 'bottom',
     },
   }
 
@@ -35,6 +34,8 @@ class Map extends React.Component {
   }
 
   componentWillMount() {
+    this.props.getUser();
+    this.props.getPosts();
     const { Location, Permissions } = Exponent;
     Permissions.askAsync(Permissions.LOCATION)
     .then((response) => {
@@ -59,54 +60,34 @@ class Map extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.data);
-  }
-
   render() {
-    if (this.props.data.loading) {
+    if (this.props.user.isLoading) {
       return (
         <ActivityIndicator
           size="large"
-          color="#843131"
+          color="#262626"
         />
       );
+    } else {
+      return (
+        <Components.MapView
+          style={{ flex: 1 }}
+          region={this.state.region}
+        >
+          <Components.MapView.Marker
+            coordinate={{
+              latitude: this.state.region.latitude,
+              longitude: this.state.region.longitude,
+            }}
+            title={this.props.user.full_name}
+            image={require('../assets/images/pin.png')}
+          />
+        </Components.MapView>
+      );
     }
-    return (
-      <Components.MapView
-        style={{ flex: 1 }}
-        region={this.state.region}
-      >
-        <Components.MapView.Marker
-          coordinate={{
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude,
-          }}
-          title="Username"
-          description="This will be some post text."
-        />
-      </Components.MapView>
-    );
   }
 }
 
+Map.propTypes = propTypes;
 
-const mapQueriesToProps = ({ ownProps, state }) => {
-  return {
-    data: {
-      query: gql`
-        query {
-          User(email: ${state.user.email}, id: ${state.user.id}) {
-            firstName,
-            lastName
-          }
-        }
-      `,
-    },
-  };
-};
-
-export default connect({
-  mapQueriesToProps,
-})(Map);
-
+export default Map;

@@ -1,11 +1,27 @@
-import {
-  createRouter,
-} from '@exponent/ex-navigation';
+import { TabNavigator } from 'react-navigation';
 
 import HomeScreen from '../screens/HomeScreen';
-import Map from '../screens/MapScreen';
+import MapScreen from '../screens/MapScreen';
 
-export default createRouter(() => ({
-  home: () => HomeScreen,
-  map: () => Map,
-}));
+export default TabNavigator({
+  home: { screen: HomeScreen },
+  map: { screen: MapScreen },
+}, {
+  tabBarOptions: {
+    activeTintColor: '#262626',
+    inactiveTintColor: '#999',
+    indicatorStyle: {
+      backgroundColor: '#262626',
+      height: 5,
+    },
+    labelStyle: {
+      fontWeight: 'bold',
+    },
+    pressColor: '#999',
+    showIcon: true,
+    style: {
+      backgroundColor: '#fafafa',
+    },
+    animationEnabled: false,
+  },
+});

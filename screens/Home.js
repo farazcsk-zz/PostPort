@@ -1,169 +1,75 @@
-import React from 'react';
-import * as Animatable from 'react-native-animatable';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
-import {
-  Card,
-  CardTitle,
-  CardAction,
-} from 'react-native-card-view';
+import React, { PropTypes } from 'react';
 import {
   ScrollView,
-  StyleSheet,
-  Button,
-  Text,
-  TextInput,
-  ActivityIndicator,
   AsyncStorage,
+  View,
+  WebView,
 } from 'react-native';
 
+const propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
+  navigation: PropTypes.shape().isRequired,
+};
+
 class Home extends React.Component {
-  state = {
-    loggingIn: false,
-  };
-  static route = {
-    navigationBar: {
-      title: 'Login',
+  static navigationOptions = {
+    tabBar: {
+      label: 'Home',
     },
   }
 
-  handleLogin = () => {
-    const { email, password } = this.props.user;
+  state = {
+    loggingIn: true,
+  };
 
-    this.setState({
-      loggingIn: true,
-    });
-    this.props.mutate({ variables: { email, password } })
-      .then((data) => {
-        if (data.data.signinUser.token) {
+  componentWillMount() {
+    const { navigate } = this.props.navigation;
+
+    if (this.props.user.id) {
+      navigate('map');
+      this.setState({
+        loggingIn: false,
+      });
+    }
+  }
+
+  onNavigationStateChange = (navState) => {
+    const { navigate } = this.props.navigation;
+    const accessToken = navState.url.split('access_token=')[1];
+    if (accessToken) {
+      AsyncStorage.setItem('accessToken', accessToken)
+        .then(() => {
           this.setState({
+            ...this.state,
             loggingIn: false,
           });
-          this.props.setUser({
-            user: {
-              ...data.data.signinUser.user,
-              token: data.data.signinUser.token,
-            },
-          });
-          AsyncStorage.setItem('token', data.data.signinUser.token)
-            .then(() => {
-              this.props.navigator.push('map');
-            });
-        }
-      });
-  }
+          navigate('map');
+        });
+    }
+  };
 
   render() {
     return (
       <ScrollView>
-        <Animatable.View animation="bounceInDown" duration={600}>
-          <Card styles={card}>
-            <CardTitle>
-              <Text style={styles.welcome}>
-                Welcome
-              </Text>
-            </CardTitle>
-            <Text style={styles.instructions}>
-              Please login to continue
-            </Text>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="#3B3738"
-              autoCapitalize="none"
-              placeholder="Email"
-              onChangeText={(email) => {
-                this.props.updateEmail({ email });
-              }}
+        <View>
+          {this.state.loggingIn &&
+            <WebView
+              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
+              style={{ height: 500 }}
+              onNavigationStateChange={this.onNavigationStateChange}
             />
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="#3B3738"
-              autoCapitalize="none"
-              placeholder="Password"
-              onChangeText={(password) => {
-                this.props.updatePassword({ password });
-              }}
-            />
-            <CardAction>
-              {this.state.loggingIn
-                ?
-                  <ActivityIndicator
-                    size="large"
-                    color="#843131"
-                  />
-                  :
-                  <Button
-                    containerStyle={styles.button}
-                    title="LOGIN"
-                    color="#3B3738"
-                    onPress={() => {
-                      this.handleLogin();
-                    }}
-                  />
-              }
-            </CardAction>
-          </Card>
-        </Animatable.View>
+        }
+        </View>
       </ScrollView>
     );
   }
 }
-const loginMutation = gql`
-  mutation signinUser($email: String!, $password: String!) {
-    signinUser(email: { email: $email, password: $password }){
-      token
-      user {
-        id,
-        firstName,
-        lastName,
-        email,
-      }
-    }
-  }
-`;
 
-const card = {
-  card: {
-    marginTop: 100,
-    margin: 20,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fafafa',
-    borderWidth: 2,
-    borderColor: '#843131',
-  },
-};
+Home.propTypes = propTypes;
 
-const styles = StyleSheet.create({
-  input: {
-    fontFamily: 'roboto-bold',
-    width: 250,
-    height: 40,
-    margin: 20,
-  },
-  container: {
-    paddingTop: 100,
-    backgroundColor: '#fafafa',
-  },
-
-  welcome: {
-    fontFamily: 'roboto-mono-regular',
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#3B3738',
-    margin: 10,
-  },
-
-  instructions: {
-    fontFamily: 'roboto-italic',
-    textAlign: 'center',
-    color: '#3B3738',
-    marginBottom: 5,
-  },
-});
-
-export default graphql(loginMutation)(Home);
+export default Home;
 
 
 
