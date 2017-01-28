@@ -13,8 +13,7 @@ class Map extends React.Component {
         title="Logout"
         color="#262626"
         onPress={() => {
-          // this.props.navigator.push('home');
-          console.log(route,props);
+          this.props.navigator.push('home');
         }}
       />,
     },
@@ -77,7 +76,7 @@ class Map extends React.Component {
               latitude: this.state.region.latitude,
               longitude: this.state.region.longitude,
             }}
-            title="Username"
+            title={this.props.user.full_name}
             description="This will be some post text."
           />
         </Components.MapView>
