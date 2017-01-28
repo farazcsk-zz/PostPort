@@ -10,7 +10,7 @@ class Map extends React.Component {
       title: 'MAP',
       renderRight: (route, props) => <Button
         title="Logout"
-        color="#3B3738"
+        color="#262626"
         onPress={() => {
           // this.props.navigator.push('home');
           console.log(route,props);
@@ -32,6 +32,7 @@ class Map extends React.Component {
   }
 
   componentWillMount() {
+    this.props.getUser();
     const { Location, Permissions } = Exponent;
     Permissions.askAsync(Permissions.LOCATION)
     .then((response) => {
@@ -76,4 +77,3 @@ class Map extends React.Component {
 }
 
 export default Map;
-
