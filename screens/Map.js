@@ -77,7 +77,7 @@ class Map extends React.Component {
               longitude: this.state.region.longitude,
             }}
             title={this.props.user.full_name}
-            description="This will be some post text."
+            image={require('../assets/images/pin.png')}
           />
         </Components.MapView>
       );
