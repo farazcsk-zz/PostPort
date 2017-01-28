@@ -2,11 +2,7 @@ import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 import {
   Button,
-  ActivityIndicator,
-  Text,
 } from 'react-native';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
 class Map extends React.Component {
   static route = {
@@ -60,14 +56,7 @@ class Map extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.data);
-  }
-
   render() {
-    if (this.props.data.loading) {
-      return <ActivityIndicator />;
-    }
     return (
       <Components.MapView
         style={{ flex: 1 }}
@@ -86,18 +75,4 @@ class Map extends React.Component {
   }
 }
 
-const UserQuery = gql`query($email: String!, $id: ID!) {
-  User(email: $email, id: $id) {
-    firstName,
-    lastName
-  }
-}`;
-
-export default graphql(UserQuery, {
-  options: {
-    variables: {
-      email: 'test@email.com',
-      id: 'cixony0w379kk0171yp5w75fv',
-    },
-  },
-})(Map);
+export default Map;

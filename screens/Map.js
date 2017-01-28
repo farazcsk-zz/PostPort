@@ -1,11 +1,8 @@
 import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import {
   Button,
-  ActivityIndicator,
 } from 'react-native';
-import gql from 'graphql-tag';
 
 class Map extends React.Component {
   static route = {
@@ -59,19 +56,7 @@ class Map extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.data);
-  }
-
   render() {
-    if (this.props.data.loading) {
-      return (
-        <ActivityIndicator
-          size="large"
-          color="#843131"
-        />
-      );
-    }
     return (
       <Components.MapView
         style={{ flex: 1 }}
@@ -90,23 +75,5 @@ class Map extends React.Component {
   }
 }
 
-
-const mapQueriesToProps = ({ ownProps, state }) => {
-  return {
-    data: {
-      query: gql`
-        query {
-          User(email: ${state.user.email}, id: ${state.user.id}) {
-            firstName,
-            lastName
-          }
-        }
-      `,
-    },
-  };
-};
-
-export default connect({
-  mapQueriesToProps,
-})(Map);
+export default Map;
 

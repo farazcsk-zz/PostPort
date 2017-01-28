@@ -1,8 +1,8 @@
 import Exponent from 'exponent';
 import React from 'react';
 import {
-  ApolloProvider,
-} from 'react-apollo';
+  Provider,
+} from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -12,7 +12,6 @@ import {
   StackNavigation,
 } from '@exponent/ex-navigation';
 
-import client from './apollo';
 import store from './state/store';
 import Router from './navigation/Router';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
@@ -52,7 +51,7 @@ class App extends React.Component {
   render() {
     if (this.state.appIsReady) {
       return (
-        <ApolloProvider client={client} store={store}>
+        <Provider store={store}>
           <View style={styles.container}>
             <NavigationProvider router={Router}>
               <StackNavigation
@@ -70,7 +69,7 @@ class App extends React.Component {
               />
             </NavigationProvider>
           </View>
-        </ApolloProvider>
+        </Provider>
       );
     } else {
       return (

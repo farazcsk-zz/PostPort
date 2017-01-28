@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { setUser, updateEmail, updatePassword } from '../user/userActions';
+import { setUser } from '../user/userActions';
 import Home from './Home';
 
 const mapStateToProps = (state) => {
@@ -11,6 +11,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   setUser,
-  updateEmail,
-  updatePassword,
 })(Home);
