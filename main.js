@@ -7,10 +7,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {
-  NavigationProvider,
-  StackNavigation,
-} from '@exponent/ex-navigation';
 
 import store from './state/store';
 import Router from './navigation/Router';
@@ -53,21 +49,7 @@ class App extends React.Component {
       return (
         <Provider store={store}>
           <View style={styles.container}>
-            <NavigationProvider router={Router}>
-              <StackNavigation
-                initialRoute="home"
-                defaultRouteConfig={{
-                  navigationBar: {
-                    backgroundColor: '#fafafa',
-                    tintColor: '#262626',
-                    titleStyle: {
-                      fontFamily: 'roboto-bold',
-                    },
-                    color: '#262626',
-                  },
-                }}
-              />
-            </NavigationProvider>
+            <Router />
           </View>
         </Provider>
       );

@@ -14,14 +14,8 @@ const propTypes = {
 };
 
 class Map extends React.Component {
-  static route = {
-    navigationBar: {
-      title: 'MAP',
-      renderRight: (route, props) => <Image
-        source={{ uri: 'https://scontent.cdninstagram.com/t51.2885-19/s150x150/12301211_1510776235889447_1893314790_a.jpg' }}
-        style={{ height: 77, width: 77, borderWidth: 2, borderColor: '#dbdbdb', borderRadius: 50 }}
-      />,
-    },
+  static navigationOptions = {
+    title: 'MAP',
   }
 
   constructor(props) {

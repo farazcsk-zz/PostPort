@@ -18,19 +18,23 @@ class Home extends React.Component {
   state = {
     loggingIn: true,
   };
-  static route = {
-    navigationBar: {
-      title: 'Login',
-    },
+  static navigationOptions = {
+    title: 'Login',
   }
 
   componentWillMount() {
+    const { navigate } = this.props.navigation;
+
     if (this.props.user.id) {
-      this.props.navigator.push('map');
+      navigate('map');
+      this.setState({
+        loggingIn: false,
+      });
     }
   }
 
   onNavigationStateChange = (navState) => {
+    const { navigate } = this.props.navigation;
     const accessToken = navState.url.split('access_token=')[1];
     if (accessToken) {
       AsyncStorage.setItem('accessToken', accessToken)
@@ -39,7 +43,7 @@ class Home extends React.Component {
             ...this.state,
             loggingIn: false,
           });
-          this.props.navigator.push('map');
+          navigate('map');
         });
     }
   };
@@ -47,17 +51,15 @@ class Home extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Animatable.View animation="bounceInDown" duration={600}>
-          <View>
-            {this.state.loggingIn &&
-              <WebView
-                source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
-                style={{ marginTop: 50, height: 500 }}
-                onNavigationStateChange={this.onNavigationStateChange}
-              />
-          }
-          </View>
-        </Animatable.View>
+        <View>
+          {this.state.loggingIn &&
+            <WebView
+              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
+              style={{ marginTop: 50, height: 500 }}
+              onNavigationStateChange={this.onNavigationStateChange}
+            />
+        }
+        </View>
       </ScrollView>
     );
   }

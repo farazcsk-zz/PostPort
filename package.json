@@ -17,6 +17,7 @@
     "react-native": "https://github.com/exponent/react-native/archive/sdk-13.0.3.tar.gz",
     "react-native-animatable": "^1.1.0",
     "react-native-card-view": "0.0.3",
+    "react-navigation": "^1.0.0-beta.1",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0"
