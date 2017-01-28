@@ -1,26 +1,27 @@
 import React, { PropTypes } from 'react';
-import * as Animatable from 'react-native-animatable';
 import {
   ScrollView,
   AsyncStorage,
   View,
   WebView,
+  ActivityIndicator,
 } from 'react-native';
 
 const propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
   }).isRequired,
-  navigator: PropTypes.shape().isRequired,
+  navigation: PropTypes.shape().isRequired,
 };
 
 class Home extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+  }
+
   state = {
     loggingIn: true,
   };
-  static navigationOptions = {
-    title: 'Login',
-  }
 
   componentWillMount() {
     const { navigate } = this.props.navigation;
@@ -55,7 +56,7 @@ class Home extends React.Component {
           {this.state.loggingIn &&
             <WebView
               source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
-              style={{ marginTop: 50, height: 500 }}
+              style={{ height: 500 }}
               onNavigationStateChange={this.onNavigationStateChange}
             />
         }

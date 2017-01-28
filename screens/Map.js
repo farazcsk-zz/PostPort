@@ -1,21 +1,20 @@
 import Exponent, { Components } from 'exponent';
 import React, { PropTypes } from 'react';
 import {
-  Image,
   ActivityIndicator,
 } from 'react-native';
 
 const propTypes = {
   user: PropTypes.shape({
     isLoading: PropTypes.bool.isRequired,
-    full_name: PropTypes.string.isRequired,
+    full_name: PropTypes.string,
   }).isRequired,
   getUser: PropTypes.func.isRequired,
 };
 
 class Map extends React.Component {
   static navigationOptions = {
-    title: 'MAP',
+    title: 'Map',
   }
 
   constructor(props) {
