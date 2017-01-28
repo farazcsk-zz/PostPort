@@ -5,6 +5,7 @@
     "prefer-object-spread"
   ],
   "rules": {
+    "arrow-body-style": 0,
     "prefer-object-spread/prefer-object-spread": 2,
     "react/jsx-filename-extension": 0,
     "react/prefer-stateless-function": 0,

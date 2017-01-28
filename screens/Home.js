@@ -17,7 +17,6 @@ class Home extends React.Component {
   static navigationOptions = {
     tabBar: {
       label: 'Home',
-      tabBarPosition: 'bottom',
     },
   }
 

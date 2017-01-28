@@ -2,7 +2,6 @@ import { AsyncStorage } from 'react-native';
 
 
 const getUser = () => {
-
   return (dispatch) => {
     dispatch({ type: 'GET_USER_REQUEST' });
 
@@ -24,6 +23,30 @@ const getUser = () => {
   };
 };
 
+const getPosts = () => {
+  return (dispatch) => {
+    dispatch({ type: 'GET_POSTS_REQUEST' });
+
+    AsyncStorage.getItem('accessToken')
+      .then((data) => {
+        const accessToken = data;
+        fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}`)
+          .then(response => response.json())
+          .then((responseJson) => {
+            console.log(responseJson);
+            return dispatch({
+              type: 'GET_POSTS_SUCCESS',
+              posts: responseJson.data,
+            });
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
 export {
   getUser,
+  getPosts,
 };

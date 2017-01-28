@@ -1,5 +1,6 @@
 const initialState = {
   isLoading: false,
+  posts: [],
 };
 
 const user = (state = initialState, action) => {
@@ -13,6 +14,17 @@ const user = (state = initialState, action) => {
       return {
         isLoading: false,
         ...action.user,
+      };
+
+    case 'GET_POSTS_REQUEST':
+      return {
+        isLoading: true,
+      };
+
+    case 'GET_POSTS_SUCCESS':
+      return {
+        isLoading: false,
+        posts: action.posts,
       };
 
     case 'LOGOUT':

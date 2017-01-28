@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { getUser } from '../user/userActions';
+import { getUser, getPosts } from '../user/userActions';
 import Map from './Map';
 
 const mapStateToProps = (state) => {
@@ -11,4 +11,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   getUser,
+  getPosts,
 })(Map);
