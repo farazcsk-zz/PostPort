@@ -2,7 +2,7 @@
   "name": "marauders-map-native",
   "description": "An empty new project",
   "slug": "marauders-map-native",
-  "sdkVersion": "12.0.0",
+  "sdkVersion": "13.0.0",
   "version": "1.0.0",
   "android": {
     "package": "com.mmn.exp",
@@ -16,13 +16,13 @@
   "androidStatusBarColor" : "#3B3738",
   "androidHideExponentNotificationInShellApp": true,
   "primaryColor": "#3B3738",
-  "iconUrl": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
+  "icon": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
   "notification": {
-    "iconUrl": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
+    "icon": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
     "color": "#000000"
   },
   "loading": {
-    "iconUrl": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
+    "icon": "http://daynin.github.io/clojurescript-presentation/img/react-logo.png",
     "hideExponentText": true
   },
   "packagerOpts": {
