@@ -30,6 +30,7 @@ class Home extends React.Component {
             ...this.state,
             loggingIn: false,
           });
+          this.props.navigator.push('map');
         });
     }
   };
