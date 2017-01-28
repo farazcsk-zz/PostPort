@@ -15,6 +15,8 @@ import {
   TextInput,
   ActivityIndicator,
   AsyncStorage,
+  View,
+  WebView,
 } from 'react-native';
 
 class Home extends React.Component {
@@ -27,82 +29,42 @@ class Home extends React.Component {
     },
   }
 
-  handleLogin = () => {
-    const { email, password } = this.props.user;
+  // handleLogin = () => {
+  //   const { email, password } = this.props.user;
 
-    this.setState({
-      loggingIn: true,
-    });
-    this.props.mutate({ variables: { email, password } })
-      .then((data) => {
-        if (data.data.signinUser.token) {
-          this.setState({
-            loggingIn: false,
-          });
-          this.props.setUser({
-            user: {
-              ...data.data.signinUser.user,
-              token: data.data.signinUser.token,
-            },
-          });
-          AsyncStorage.setItem('token', data.data.signinUser.token)
-            .then(() => {
-              this.props.navigator.push('map');
-            });
-        }
-      });
-  }
+  //   this.setState({
+  //     loggingIn: true,
+  //   });
+  //   this.props.mutate({ variables: { email, password } })
+  //     .then((data) => {
+  //       if (data.data.signinUser.token) {
+  //         this.setState({
+  //           loggingIn: false,
+  //         });
+  //         this.props.setUser({
+  //           user: {
+  //             ...data.data.signinUser.user,
+  //             token: data.data.signinUser.token,
+  //           },
+  //         });
+  //         AsyncStorage.setItem('token', data.data.signinUser.token)
+  //           .then(() => {
+  //             this.props.navigator.push('map');
+  //           });
+  //       }
+  //     });
+  // }
 
   render() {
     return (
       <ScrollView>
         <Animatable.View animation="bounceInDown" duration={600}>
-          <Card styles={card}>
-            <CardTitle>
-              <Text style={styles.welcome}>
-                Welcome
-              </Text>
-            </CardTitle>
-            <Text style={styles.instructions}>
-              Please login to continue
-            </Text>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="#3B3738"
-              autoCapitalize="none"
-              placeholder="Email"
-              onChangeText={(email) => {
-                this.props.updateEmail({ email });
-              }}
+          <View>
+            <WebView
+              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=token' }}
+              style={{ marginTop: 50, height: 500 }}
             />
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="#3B3738"
-              autoCapitalize="none"
-              placeholder="Password"
-              onChangeText={(password) => {
-                this.props.updatePassword({ password });
-              }}
-            />
-            <CardAction>
-              {this.state.loggingIn
-                ?
-                  <ActivityIndicator
-                    size="large"
-                    color="#843131"
-                  />
-                  :
-                  <Button
-                    containerStyle={styles.button}
-                    title="LOGIN"
-                    color="#3B3738"
-                    onPress={() => {
-                      this.handleLogin();
-                    }}
-                  />
-              }
-            </CardAction>
-          </Card>
+          </View>
         </Animatable.View>
       </ScrollView>
     );
