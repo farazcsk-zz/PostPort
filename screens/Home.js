@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as Animatable from 'react-native-animatable';
 import {
   ScrollView,
@@ -6,6 +6,13 @@ import {
   View,
   WebView,
 } from 'react-native';
+
+const propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  navigator: PropTypes.shape().isRequired,
+};
 
 class Home extends React.Component {
   state = {
@@ -55,6 +62,8 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = propTypes;
 
 export default Home;
 

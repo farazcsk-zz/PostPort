@@ -5,6 +5,14 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+const propTypes = {
+  user: PropTypes.shape({
+    isLoading: PropTypes.bool.isRequired,
+    full_name: PropTypes.string.isRequired,
+  }).isRequired,
+  getUser: PropTypes.func.isRequired,
+};
+
 class Map extends React.Component {
   static route = {
     navigationBar: {
@@ -13,7 +21,7 @@ class Map extends React.Component {
         title="Logout"
         color="#262626"
         onPress={() => {
-          this.props.navigator.push('home');
+          props.navigator.push('home');
         }}
       />,
     },
@@ -84,5 +92,7 @@ class Map extends React.Component {
     }
   }
 }
+
+Map.propTypes = propTypes;
 
 export default Map;
