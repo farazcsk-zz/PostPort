@@ -29,31 +29,17 @@ class Home extends React.Component {
     },
   }
 
-  // handleLogin = () => {
-  //   const { email, password } = this.props.user;
 
-  //   this.setState({
-  //     loggingIn: true,
-  //   });
-  //   this.props.mutate({ variables: { email, password } })
-  //     .then((data) => {
-  //       if (data.data.signinUser.token) {
-  //         this.setState({
-  //           loggingIn: false,
-  //         });
-  //         this.props.setUser({
-  //           user: {
-  //             ...data.data.signinUser.user,
-  //             token: data.data.signinUser.token,
-  //           },
-  //         });
-  //         AsyncStorage.setItem('token', data.data.signinUser.token)
-  //           .then(() => {
-  //             this.props.navigator.push('map');
-  //           });
-  //       }
-  //     });
-  // }
+  onNavigationStateChange = (navState) => {
+    const accessToken = navState.url.split('access_token=')[1];
+    if (accessToken) {
+      console.log(accessToken);
+      AsyncStorage.setItem('accessToken', accessToken)
+        .then(() => {
+          console.log('logged in');
+        });
+    }
+  };
 
   render() {
     return (
@@ -61,8 +47,9 @@ class Home extends React.Component {
         <Animatable.View animation="bounceInDown" duration={600}>
           <View>
             <WebView
-              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=token' }}
+              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
               style={{ marginTop: 50, height: 500 }}
+              onNavigationStateChange={this.onNavigationStateChange}
             />
           </View>
         </Animatable.View>
