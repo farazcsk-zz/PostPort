@@ -74,14 +74,15 @@ class Map extends React.Component {
           style={{ flex: 1 }}
           region={this.state.region}
         >
-          <Components.MapView.Marker
-            coordinate={{
-              latitude: this.state.region.latitude,
-              longitude: this.state.region.longitude,
-            }}
-            title={this.props.user.full_name}
-            image={require('../assets/images/pin.png')}
-          />
+          {this.props.user.posts.map(post => (
+            <Components.MapView.Marker
+              key={post.id}
+              coordinate={{
+                latitude: post.location.latitude,
+                longitude: post.location.longitude,
+              }}
+            />
+          ))}
         </Components.MapView>
       );
     }

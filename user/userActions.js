@@ -42,7 +42,7 @@ const getPosts = () => {
           });
       })
       .catch((error) => {
-        console.error(error);
+        console.error('something went wrong', error);
       });
   };
 };
