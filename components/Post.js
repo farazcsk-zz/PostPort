@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 const propTypes = {
-  source: PropTypes.string.isRequired,
+
 };
 
 class Post extends Component {
@@ -13,11 +13,15 @@ class Post extends Component {
     this.state = {};
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('some stuff', nextProps);
+  }
+
   render() {
     return (
       <Image
-        source={{ uri: 'https://scontent.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/13398953_154179078328102_732947784_n.jpg?ig_cache_key=MTI3NjAzNzA1NzUxMTczNzQ1Nw%3D%3D.2' }}
-        style={{ height: 320 }}
+        source={!this.props.post ? null : { uri: this.props.post.images.standard_resolution.url }}
+        style={!this.props.post ? null : { height: 320 }}
       />
     );
   }

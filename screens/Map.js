@@ -30,6 +30,7 @@ class Map extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
+      currentPost: null,
     };
   }
 
@@ -59,6 +60,19 @@ class Map extends Component {
     });
   }
 
+  setPost = (post) => {
+    console.log('pin press');
+    this.setState({
+      ...this.state,
+      region: {
+        ...this.state.region,
+        latitude: post.location.latitude,
+        longitude: post.location.longitude,
+      },
+      currentPost: post,
+    });
+  }
+
   render() {
     if (this.props.isLoading) {
       return (
@@ -83,10 +97,11 @@ class Map extends Component {
                 }}
                 title={post.caption ? post.caption.text : ''}
                 description={post.location ? post.location.name : ''}
+                onPress={() => this.setPost(post)}
               />
             ))}
           </Components.MapView>
-          <Post source="https://placehold.it/200x200" />
+          <Post post={this.state.currentPost} />
         </View>
       );
     }
