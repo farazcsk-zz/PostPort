@@ -9,7 +9,6 @@ const propTypes = {
     isLoading: PropTypes.bool.isRequired,
     full_name: PropTypes.string,
   }).isRequired,
-  getUser: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,
 };
 
@@ -34,7 +33,6 @@ class Map extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getUser();
     this.props.getPosts();
     const { Location, Permissions } = Exponent;
     Permissions.askAsync(Permissions.LOCATION)

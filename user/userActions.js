@@ -20,6 +20,10 @@ const getUser = () => {
       })
       .catch((error) => {
         console.error(error);
+        return dispatch({
+          type: 'GET_USER_ERROR',
+          error,
+        });
       });
   };
 };
@@ -43,6 +47,10 @@ const getPosts = () => {
       })
       .catch((error) => {
         console.error('something went wrong', error);
+        return dispatch({
+          type: 'GET_POSTS_ERROR',
+          error,
+        });
       });
   };
 };
