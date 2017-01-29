@@ -73,6 +73,7 @@ class Map extends React.Component {
           {this.props.posts.map(post => (
             <Components.MapView.Marker
               key={post.id}
+              image={require('../assets/images/pin.png')}
               coordinate={{
                 latitude: post.location.latitude,
                 longitude: post.location.longitude,
