@@ -1,8 +1,11 @@
 import Exponent, { Components } from 'exponent';
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   ActivityIndicator,
+  View,
 } from 'react-native';
+
+import Post from '../components/Post';
 
 const propTypes = {
   posts: PropTypes.any,
@@ -10,7 +13,7 @@ const propTypes = {
   getPosts: PropTypes.func.isRequired,
 };
 
-class Map extends React.Component {
+class Map extends Component {
   static navigationOptions = {
     tabBar: {
       label: 'Map',
@@ -27,6 +30,7 @@ class Map extends React.Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
+      currentPost: null,
     };
   }
 
@@ -56,6 +60,19 @@ class Map extends React.Component {
     });
   }
 
+  setPost = (post) => {
+    console.log('pin press');
+    this.setState({
+      ...this.state,
+      region: {
+        ...this.state.region,
+        latitude: post.location.latitude,
+        longitude: post.location.longitude,
+      },
+      currentPost: post,
+    });
+  }
+
   render() {
     if (this.props.isLoading) {
       return (
@@ -66,23 +83,26 @@ class Map extends React.Component {
       );
     } else {
       return (
-        <Components.MapView
-          style={{ flex: 1 }}
-          region={this.state.region}
-        >
-          {this.props.posts.map(post => (
-            <Components.MapView.Marker
-              key={post.id}
-              image={require('../assets/images/pin.png')}
-              coordinate={{
-                latitude: post.location.latitude,
-                longitude: post.location.longitude,
-              }}
-              title={post.caption ? post.caption.text : ''}
-              description={post.location ? post.location.name : ''}
-            />
-          ))}
-        </Components.MapView>
+        <View style={{ flex: 1 }}>
+          <Components.MapView
+            style={{ flex: 1 }}
+            region={this.state.region}
+          >
+            {this.props.posts.map(post => (
+              <Components.MapView.Marker
+                key={post.id}
+                coordinate={{
+                  latitude: post.location.latitude,
+                  longitude: post.location.longitude,
+                }}
+                title={post.caption ? post.caption.text : ''}
+                description={post.location ? post.location.name : ''}
+                onPress={() => this.setPost(post)}
+              />
+            ))}
+          </Components.MapView>
+          <Post post={this.state.currentPost} />
+        </View>
       );
     }
   }
