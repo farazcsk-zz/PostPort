@@ -27,6 +27,9 @@ const user = (state = initialState, action) => {
         posts: action.posts,
       };
 
+    case 'GET_POSTS_ERROR':
+      return state;
+
     case 'LOGOUT':
       return {
         ...initialState,

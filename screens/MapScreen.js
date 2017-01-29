@@ -5,7 +5,8 @@ import Map from './Map';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    isLoading: state.user.isLoading,
+    posts: state.user.posts,
   };
 };
 

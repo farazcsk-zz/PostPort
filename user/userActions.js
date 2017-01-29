@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
+import formatPosts from '../helpers/formatPosts';
 
 const getUser = () => {
   return (dispatch) => {
@@ -19,6 +20,10 @@ const getUser = () => {
       })
       .catch((error) => {
         console.error(error);
+        return dispatch({
+          type: 'GET_USER_ERROR',
+          error,
+        });
       });
   };
 };
@@ -33,15 +38,19 @@ const getPosts = () => {
         fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}`)
           .then(response => response.json())
           .then((responseJson) => {
-            console.log(responseJson);
+            const postsWithLocation = formatPosts(responseJson.data);
             return dispatch({
               type: 'GET_POSTS_SUCCESS',
-              posts: responseJson.data,
+              posts: postsWithLocation,
             });
           });
       })
       .catch((error) => {
-        console.error(error);
+        console.error('something went wrong', error);
+        return dispatch({
+          type: 'GET_POSTS_ERROR',
+          error,
+        });
       });
   };
 };

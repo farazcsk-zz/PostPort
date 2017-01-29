@@ -5,11 +5,8 @@ import {
 } from 'react-native';
 
 const propTypes = {
-  user: PropTypes.shape({
-    isLoading: PropTypes.bool.isRequired,
-    full_name: PropTypes.string,
-  }).isRequired,
-  getUser: PropTypes.func.isRequired,
+  posts: PropTypes.any,
+  isLoading: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
 };
 
@@ -34,7 +31,6 @@ class Map extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getUser();
     this.props.getPosts();
     const { Location, Permissions } = Exponent;
     Permissions.askAsync(Permissions.LOCATION)
@@ -61,7 +57,7 @@ class Map extends React.Component {
   }
 
   render() {
-    if (this.props.user.isLoading) {
+    if (this.props.isLoading) {
       return (
         <ActivityIndicator
           size="large"
@@ -74,14 +70,18 @@ class Map extends React.Component {
           style={{ flex: 1 }}
           region={this.state.region}
         >
-          <Components.MapView.Marker
-            coordinate={{
-              latitude: this.state.region.latitude,
-              longitude: this.state.region.longitude,
-            }}
-            title={this.props.user.full_name}
-            image={require('../assets/images/pin.png')}
-          />
+          {this.props.posts.map(post => (
+            <Components.MapView.Marker
+              key={post.id}
+              image={require('../assets/images/pin.png')}
+              coordinate={{
+                latitude: post.location.latitude,
+                longitude: post.location.longitude,
+              }}
+              title={post.caption ? post.caption.text : ''}
+              description={post.location ? post.location.name : ''}
+            />
+          ))}
         </Components.MapView>
       );
     }
