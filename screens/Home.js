@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 import {
   ScrollView,
-  AsyncStorage,
-  View,
-  WebView,
+  Alert,
 } from 'react-native';
 import Exponent, { Components } from 'exponent';
 
@@ -27,17 +25,20 @@ class Home extends React.Component {
       permissions: ['public_profile'],
     })
     .then((response) => {
-      console.log(response);
+      if (response.type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        fetch(
+          `https://graph.facebook.com/me?access_token=${response.token}`
+        )
+        .then((response) => response.json())
+        .then((responseData) => {
+          Alert.alert(
+            'Logged in!',
+            `Hi ${responseData.name}!`,
+          );
+        })
+      }
     });
-    // if (type === 'success') {
-    //   // Get the user's name using Facebook's Graph API
-    //   const response = await fetch(
-    //     `https://graph.facebook.com/me?access_token=${token}`);
-    //   Alert.alert(
-    //     'Logged in!',
-    //     `Hi ${(await response.json()).name}!`,
-    //   );
-    // }
   }
 
   render() {
