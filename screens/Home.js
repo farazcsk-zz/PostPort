@@ -37,6 +37,7 @@ class Home extends React.Component {
             `Hi ${responseData.name}!`,
           );
         })
+        // https:graph.facebook.com/me?fields=posts{place}&access_token=
       }
     });
   }
