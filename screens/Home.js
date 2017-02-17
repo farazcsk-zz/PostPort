@@ -5,6 +5,7 @@ import {
   View,
   WebView,
 } from 'react-native';
+import Exponent, { Components } from 'exponent';
 
 const propTypes = {
   user: PropTypes.shape({
@@ -20,48 +21,28 @@ class Home extends React.Component {
     },
   }
 
-  state = {
-    loggingIn: true,
-  };
-
   componentWillMount() {
-    const { navigate } = this.props.navigation;
-
-    if (this.props.user.id) {
-      navigate('map');
-      this.setState({
-        loggingIn: false,
-      });
-    }
+    Exponent.Facebook.logInWithReadPermissionsAsync(
+      '395836734110712', {
+      permissions: ['public_profile'],
+    })
+    .then((response) => {
+      console.log(response);
+    });
+    // if (type === 'success') {
+    //   // Get the user's name using Facebook's Graph API
+    //   const response = await fetch(
+    //     `https://graph.facebook.com/me?access_token=${token}`);
+    //   Alert.alert(
+    //     'Logged in!',
+    //     `Hi ${(await response.json()).name}!`,
+    //   );
+    // }
   }
-
-  onNavigationStateChange = (navState) => {
-    const { navigate } = this.props.navigation;
-    const accessToken = navState.url.split('access_token=')[1];
-    if (accessToken) {
-      AsyncStorage.setItem('accessToken', accessToken)
-        .then(() => {
-          this.setState({
-            ...this.state,
-            loggingIn: false,
-          });
-          navigate('map');
-        });
-    }
-  };
 
   render() {
     return (
       <ScrollView>
-        <View>
-          {this.state.loggingIn &&
-            <WebView
-              source={{ uri: 'https://api.instagram.com/oauth/authorize/?client_id=4497b2b242194db0b9386ada701977a3&redirect_uri=http://instagram.com&response_type=token' }}
-              style={{ height: 500 }}
-              onNavigationStateChange={this.onNavigationStateChange}
-            />
-        }
-        </View>
       </ScrollView>
     );
   }

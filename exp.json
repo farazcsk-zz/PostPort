@@ -2,7 +2,7 @@
   "name": "marauders-map-native",
   "description": "An empty new project",
   "slug": "marauders-map-native",
-  "sdkVersion": "13.0.0",
+  "sdkVersion": "14.0.0",
   "version": "1.0.0",
   "android": {
     "package": "com.mmn.exp",
