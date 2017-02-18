@@ -4,8 +4,11 @@ import {
   Alert,
   Button,
   StyleSheet,
+  Animated,
 } from 'react-native';
-import Exponent, { Components } from 'exponent';
+import Exponent, { DangerZone } from 'exponent';
+
+const { Lottie: Animation } = DangerZone;
 
 const propTypes = {
   user: PropTypes.shape({
@@ -19,6 +22,20 @@ class Home extends React.Component {
     tabBar: {
       label: 'Home',
     },
+  }
+
+  state ={
+    progress: new Animated.Value(0),
+  }
+
+  componentWillMount() {
+    this.state.progress.setValue(0);
+    Animated.timing(this.state.progress, {
+      toValue: 1,
+      duration: 3000,
+    }).start(({ finished }) => {
+      if (finished) this.forceUpdate();
+    });
   }
 
   login = () => {
@@ -47,9 +64,18 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Animation
+          ref={this.setAnim}
+          style={{
+            width: 200,
+            height: 200,
+          }}
+          source={require('../assets/animations/PinJump.json')}
+          progress={this.state.progress}
+        />
         <Button
           title="login with facebook"
-          onPress={() => console.log('hello')}
+          onPress={this.login}
         />
       </View>
     );
