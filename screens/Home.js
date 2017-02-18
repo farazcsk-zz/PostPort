@@ -64,15 +64,17 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Animation
-          ref={this.setAnim}
-          style={{
-            width: 200,
-            height: 200,
-          }}
-          source={require('../assets/animations/PinJump.json')}
-          progress={this.state.progress}
-        />
+        <View>
+          <Animation
+            ref={this.setAnim}
+            style={{
+              width: 200,
+              height: 200,
+            }}
+            source={require('../assets/animations/PinJump.json')}
+            progress={this.state.progress}
+          />
+        </View>
         <Button
           title="login with facebook"
           onPress={this.login}
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
