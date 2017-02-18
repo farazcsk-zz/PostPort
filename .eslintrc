@@ -1,18 +1,31 @@
 {
-  "parser": "babel-eslint",
   "extends": "airbnb",
-  "plugins": [
-    "prefer-object-spread"
-  ],
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
   "rules": {
     "arrow-body-style": 0,
-    "prefer-object-spread/prefer-object-spread": 2,
+    "arrow-parens": [2, "always"],
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
+    "babel/generator-star-spacing": 1,
+    "babel/new-cap": 1,
+    "babel/object-shorthand": 1,
+    "babel/no-await-in-loop": 1,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
     "react/jsx-filename-extension": 0,
     "react/prefer-stateless-function": 0,
-    "react/sort-comp": 0,
-    "no-use-before-define": 0,
-    "no-underscore-dangle": 0,
-    "import/no-unresolved": [2, { "ignore": ["react"] }]
-  }
+  },
+  "plugins": [
+    "babel",
+    "react"
+  ]
 }
-
