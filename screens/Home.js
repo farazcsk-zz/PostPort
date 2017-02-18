@@ -87,6 +87,7 @@ class Home extends React.Component {
         </View>
         <Button
           title="login with facebook"
+          color="#262626"
           onPress={this.login}
         />
       </View>
