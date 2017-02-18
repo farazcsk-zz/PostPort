@@ -5,6 +5,7 @@ import {
   Button,
   StyleSheet,
   Animated,
+  Text,
 } from 'react-native';
 import Exponent, { DangerZone } from 'exponent';
 
@@ -26,15 +27,24 @@ class Home extends React.Component {
 
   state ={
     progress: new Animated.Value(0),
+    config: {
+      duration: 3000,
+      imperative: false,
+    },
   }
 
   componentWillMount() {
+    this.playAnimation();
+  }
+
+  playAnimation = () => {
     this.state.progress.setValue(0);
     Animated.timing(this.state.progress, {
       toValue: 1,
-      duration: 3000,
+      duration: this.state.config.duration,
     }).start(({ finished }) => {
       if (finished) this.forceUpdate();
+      this.playAnimation();
     });
   }
 
