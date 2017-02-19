@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import devTools from 'remote-redux-devtools';
 
 import posts from '../posts/postsReducer';
+import places from '../places/placesReducer';
 
 const createStoreWithNavigation = createNavigationEnabledStore({
   createStore,
@@ -15,6 +16,7 @@ const store = createStoreWithNavigation(
   combineReducers({
     navigation: NavigationReducer,
     posts,
+    places,
   }),
   compose(
     applyMiddleware(thunk),
