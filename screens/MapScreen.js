@@ -6,6 +6,7 @@ import Map from './Map';
 const mapStateToProps = (state) => {
   return {
     posts: getAllPosts(state.posts),
+    places: state.places.byId,
   };
 };
 

@@ -1,6 +1,8 @@
 import Exponent, { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
+
 
 const propTypes = {
 };
@@ -36,9 +38,6 @@ class Map extends Component {
               ...location.coords,
             },
           });
-        })
-        .catch((error) => {
-          console.log(error);
         });
       }
     })
@@ -54,6 +53,26 @@ class Map extends Component {
           style={{ flex: 1 }}
           region={this.state.region}
         >
+          {
+            this.props.posts.map((post) => {
+              if (post.place) {
+                const place = this.props.places[post.place];
+
+                return (
+                  <Components.MapView.Marker
+                    key={post.id}
+                    coordinate={{
+                      latitude: place.location.latitude,
+                      longitude: place.location.longitude,
+                    }}
+                    title={place.name}
+                    description={`${place.location.city}, ${place.location.country}`}
+                  />
+                );
+              }
+              return null;
+            })
+          }
         </Components.MapView>
       </View>
     );
