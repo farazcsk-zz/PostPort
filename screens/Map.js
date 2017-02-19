@@ -1,8 +1,12 @@
 import Exponent, { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
+import PostItem from '../components/PostItem';
+
+import { sliderWidth, itemWidth } from '../styles/PostItem.style';
+import styles from '../styles/map.style';
 
 const propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -76,6 +80,22 @@ class Map extends Component {
             })
           }
         </Components.MapView>
+        {this.props.posts.length > 0 &&
+          <Carousel
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+          >
+            {
+              this.props.posts.map((post, index) => {
+                if (post.place) {
+                  return (
+                    <Text key={`post-${index}`}>{post.id}</Text>
+                  );
+                }
+              })
+              }
+          </Carousel>
+        }
       </View>
     );
   }

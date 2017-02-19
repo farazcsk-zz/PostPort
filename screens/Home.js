@@ -13,8 +13,8 @@ const { Lottie: Animation } = DangerZone;
 
 const propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  success: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
+  navigation: PropTypes.any,
 };
 
 class Home extends React.Component {
