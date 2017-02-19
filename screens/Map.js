@@ -79,23 +79,23 @@ class Map extends Component {
               return null;
             })
           }
-        </Components.MapView>
-        {this.props.posts.length > 0 &&
-          <Carousel
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-          >
-            {
-              this.props.posts.map((post, index) => {
-                if (post.place) {
-                  return (
-                    <Text key={`post-${index}`}>{post.id}</Text>
-                  );
-                }
-              })
+          {this.props.posts.length > 0 &&
+            <Carousel
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+            >
+              {
+                this.props.posts.map((post, index) => {
+                  if (post.place) {
+                    return (
+                      <Text key={`post-${index}`}>{post.id}</Text>
+                    );
+                  }
+                })
               }
-          </Carousel>
-        }
+            </Carousel>
+          }
+        </Components.MapView>
       </View>
     );
   }
