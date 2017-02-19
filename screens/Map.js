@@ -20,7 +20,6 @@ class Map extends Component {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     },
-    currentPost: null,
   };
 
   componentWillMount() {
