@@ -5,6 +5,8 @@ import Carousel from 'react-native-snap-carousel';
 
 
 const propTypes = {
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  places: PropTypes.shape({}).isRequired,
 };
 
 class Map extends Component {
