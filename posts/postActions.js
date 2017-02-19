@@ -6,7 +6,7 @@ const getPosts = ({ accessToken }) => {
   return (dispatch) => {
     dispatch({ type: 'FETCH_POSTS_REQUEST' });
 
-    fetch(`https:graph.facebook.com/me?fields=posts{place, picture}&access_token=${accessToken}`)
+    fetch(`https:graph.facebook.com/me?fields=posts{message, place, picture}&access_token=${accessToken}`)
       .then((response) => response.json())
       .then((responseData) => {
         const posts = responseData.posts.data;
@@ -24,7 +24,6 @@ const getPosts = ({ accessToken }) => {
         });
       });
   };
-    // https:graph.facebook.com/me?fields=posts{place}&access_token=
 };
 
 export {

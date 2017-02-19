@@ -88,7 +88,7 @@ class Map extends Component {
                 this.props.posts.map((post, index) => {
                   if (post.place) {
                     return (
-                      <Text key={`post-${index}`}>{post.id}</Text>
+                      <Text key={`post-${index}`}>{post.message ? post.message : 'nothing here!'}</Text>
                     );
                   }
                 })
