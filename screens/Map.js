@@ -6,7 +6,7 @@ import Carousel from 'react-native-snap-carousel';
 import PostItem from '../components/PostItem';
 
 import { sliderWidth, itemWidth } from '../styles/PostItem.style';
-import styles from '../styles/map.style';
+// import styles from '../styles/map.style';
 
 const propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -88,7 +88,7 @@ class Map extends Component {
                 this.props.posts.map((post, index) => {
                   if (post.place) {
                     return (
-                      <Text key={`post-${index}`}>{post.message ? post.message : 'nothing here!'}</Text>
+                      <PostItem title={post.message ? post.message : 'nothing here!'} key={post.id} />
                     );
                   }
                 })
