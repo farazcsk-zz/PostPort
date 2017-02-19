@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import {
   View,
-  Alert,
   Button,
   StyleSheet,
   Animated,
@@ -12,10 +11,7 @@ import Exponent, { DangerZone } from 'exponent';
 const { Lottie: Animation } = DangerZone;
 
 const propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.string,
-  }).isRequired,
-  navigation: PropTypes.shape().isRequired,
+  getPosts: PropTypes.func.isRequired,
 };
 
 class Home extends React.Component {
@@ -49,24 +45,15 @@ class Home extends React.Component {
   }
 
   login = () => {
+    const { getPosts } = this.props;
+
     Exponent.Facebook.logInWithReadPermissionsAsync(
       '395836734110712', {
-        permissions: ['public_profile'],
+        permissions: ['public_profile', 'user_posts', 'user_tagged_places'],
       })
     .then((response) => {
       if (response.type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        fetch(
-          `https://graph.facebook.com/me?access_token=${response.token}`,
-        )
-        .then((response) => response.json())
-        .then((responseData) => {
-          Alert.alert(
-            'Logged in!',
-            `Hi ${responseData.name}!`,
-          );
-        });
-        // https:graph.facebook.com/me?fields=posts{place}&access_token=
+        getPosts({ accessToken: response.token });
       }
     });
   }
@@ -74,6 +61,7 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>Hi!</Text>
         <View>
           <Animation
             ref={this.setAnim}
