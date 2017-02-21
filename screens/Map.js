@@ -1,6 +1,6 @@
 import Exponent, { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import PostItem from '../components/PostItem';
@@ -17,7 +17,7 @@ class Map extends Component {
   static navigationOptions = {
     tabBar: {
       label: 'Map',
-      tabBarPosition: 'bottom',
+      tabBarPosition: 'top',
     },
   }
 
@@ -39,6 +39,7 @@ class Map extends Component {
         Location.getCurrentPositionAsync({ enableHighAccuracy: true })
         .then((location) => {
           this.setState({
+            ...this.state,
             region: {
               ...this.state.region,
               ...location.coords,
@@ -52,12 +53,25 @@ class Map extends Component {
     });
   }
 
+  switchPost = (postIndex) => {
+    const post = this.props.posts[postIndex];
+    const place = this.props.places[post.place];
+
+    this.map.animateToRegion({
+      latitude: place.location.latitude,
+      longitude: place.location.longitude,
+      latitudeDelta: 0.0315,
+      longitudeDelta: 0.0258,
+    });
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <Components.MapView
           style={{ flex: 1 }}
           region={this.state.region}
+          ref={(ref) => { this.map = ref; }}
         >
           {
             this.props.posts.map((post) => {
@@ -83,12 +97,18 @@ class Map extends Component {
             <Carousel
               sliderWidth={sliderWidth}
               itemWidth={itemWidth}
+              onSnapToItem={(index) => this.switchPost(index)}
             >
               {
-                this.props.posts.map((post, index) => {
+                this.props.posts.map((post) => {
                   if (post.place) {
+                    console.log(post);
                     return (
-                      <PostItem title={post.message ? post.message : 'nothing here!'} key={post.id} />
+                      <PostItem
+                        title={post.message ? post.message : 'nothing here!'}
+                        imageSource={post.full_picture}
+                        key={post.id}
+                      />
                     );
                   }
                 })
