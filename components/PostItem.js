@@ -6,7 +6,6 @@ import styles from '../styles/PostItem.style';
 class PostItem extends Component {
   render() {
     const { title, subtitle, imageSource, even } = this.props;
-    console.log(imageSource);
     const uppercaseTitle = title ? (
       <Text style={[styles.title, even ? styles.titleEven : {}]} numberOfLines={2}>
         { title.toUpperCase() }

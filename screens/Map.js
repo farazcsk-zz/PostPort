@@ -15,10 +15,7 @@ const propTypes = {
 
 class Map extends Component {
   static navigationOptions = {
-    tabBar: {
-      label: 'Map',
-      tabBarPosition: 'top',
-    },
+    title: 'Map',
   }
 
   state = {
@@ -29,29 +26,6 @@ class Map extends Component {
       longitudeDelta: 0.0421,
     },
   };
-
-  componentWillMount() {
-    const { Location, Permissions } = Exponent;
-    Permissions.askAsync(Permissions.LOCATION)
-    .then((response) => {
-      const { status } = response;
-      if (status === 'granted') {
-        Location.getCurrentPositionAsync({ enableHighAccuracy: true })
-        .then((location) => {
-          this.setState({
-            ...this.state,
-            region: {
-              ...this.state.region,
-              ...location.coords,
-            },
-          });
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
 
   switchPost = (postIndex) => {
     const post = this.props.posts[postIndex];
@@ -98,7 +72,7 @@ class Map extends Component {
               sliderWidth={sliderWidth}
               itemWidth={itemWidth}
               onSnapToItem={(index) => this.switchPost(index)}
-              containerCustomStyle={{ top: 350 }}
+              containerCustomStyle={{ top: 325 }}
             >
               {
                 this.props.posts.map((post) => {
