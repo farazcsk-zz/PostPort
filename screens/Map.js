@@ -98,11 +98,11 @@ class Map extends Component {
               sliderWidth={sliderWidth}
               itemWidth={itemWidth}
               onSnapToItem={(index) => this.switchPost(index)}
+              containerCustomStyle={{ top: 350 }}
             >
               {
                 this.props.posts.map((post) => {
                   if (post.place) {
-                    console.log(post);
                     return (
                       <PostItem
                         title={post.message ? post.message : 'nothing here!'}
