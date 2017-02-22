@@ -1,12 +1,11 @@
 import Exponent, { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import PostItem from '../components/PostItem';
 
 import { sliderWidth, itemWidth } from '../styles/PostItem.style';
-// import styles from '../styles/map.style';
 
 const propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -49,47 +48,64 @@ class Map extends Component {
         >
           {
             this.props.posts.map((post) => {
-              if (post.place) {
-                const place = this.props.places[post.place];
+              const place = this.props.places[post.place];
 
-                return (
-                  <Components.MapView.Marker
-                    key={post.id}
-                    coordinate={{
-                      latitude: place.location.latitude,
-                      longitude: place.location.longitude,
-                    }}
-                    title={place.name}
-                    description={`${place.location.city}, ${place.location.country}`}
-                  />
-                );
-              }
-              return null;
+              return (
+                <Components.MapView.Marker
+                  key={post.id}
+                  coordinate={{
+                    latitude: place.location.latitude,
+                    longitude: place.location.longitude,
+                  }}
+                  title={place.name}
+                  description={`${place.location.city}, ${place.location.country}`}
+                />
+              );
             })
           }
-          {this.props.posts.length > 0 &&
-            <Carousel
-              sliderWidth={sliderWidth}
-              itemWidth={itemWidth}
-              onSnapToItem={(index) => this.switchPost(index)}
-              containerCustomStyle={{ top: 325 }}
-            >
-              {
-                this.props.posts.map((post) => {
-                  if (post.place) {
-                    return (
-                      <PostItem
-                        title={post.message ? post.message : 'nothing here!'}
-                        imageSource={post.full_picture}
-                        key={post.id}
-                      />
-                    );
-                  }
-                })
+          <Carousel
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            onSnapToItem={(index) => this.switchPost(index)}
+            containerCustomStyle={{ top: 325 }}
+          >
+            {
+              this.props.posts.map((post, index) => {
+                if (post.place) {
+                  return (
+                    <PostItem
+                      title={post.message ? post.message : 'nothing here!'}
+                      imageSource={post.full_picture}
+                      key={index}
+                    />
+                  );
+                }
+              })
+            }
+          </Carousel>
+        </Components.MapView>
+        {Platform.OS === 'android' &&
+          <Carousel
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            onSnapToItem={(index) => this.switchPost(index)}
+            containerCustomStyle={{ paddingTop: 25, backgroundColor: '#fafafa' }}
+          >
+            {
+              this.props.posts.map((post, index) => {
+                if (post.place) {
+                  return (
+                    <PostItem
+                      title={post.message ? post.message : 'nothing here!'}
+                      imageSource={post.full_picture}
+                      key={index}
+                    />
+                  );
+                }
+              })
               }
             </Carousel>
-          }
-        </Components.MapView>
+            }
       </View>
     );
   }
