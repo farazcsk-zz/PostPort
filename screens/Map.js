@@ -1,4 +1,4 @@
-import Exponent, { Components } from 'exponent';
+import { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
 import { View, Platform } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
@@ -70,16 +70,14 @@ class Map extends Component {
             containerCustomStyle={{ top: 325 }}
           >
             {
-              this.props.posts.map((post, index) => {
-                if (post.place) {
-                  return (
-                    <PostItem
-                      title={post.message ? post.message : 'nothing here!'}
-                      imageSource={post.full_picture}
-                      key={index}
-                    />
-                  );
-                }
+              this.props.posts.map((post) => {
+                return (
+                  <PostItem
+                    title={post.message ? post.message : 'nothing here!'}
+                    imageSource={post.full_picture}
+                    key={post.id}
+                  />
+                );
               })
             }
           </Carousel>
@@ -89,23 +87,24 @@ class Map extends Component {
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
             onSnapToItem={(index) => this.switchPost(index)}
-            containerCustomStyle={{ paddingTop: 25, backgroundColor: '#fafafa' }}
-          >
+            containerCustomStyle={{
+              paddingTop: 25,
+              backgroundColor: '#fafafa',
+            }}
+            >
             {
-              this.props.posts.map((post, index) => {
-                if (post.place) {
-                  return (
-                    <PostItem
-                      title={post.message ? post.message : 'nothing here!'}
-                      imageSource={post.full_picture}
-                      key={index}
-                    />
-                  );
-                }
+              this.props.posts.map((post) => {
+                return (
+                  <PostItem
+                    title={post.message ? post.message : 'nothing here!'}
+                    imageSource={post.full_picture}
+                    key={post.id}
+                  />
+                );
               })
-              }
-            </Carousel>
             }
+          </Carousel>
+        }
       </View>
     );
   }
