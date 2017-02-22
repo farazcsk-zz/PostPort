@@ -5,13 +5,16 @@ import {
   StyleSheet,
   Animated,
   Text,
+  ActivityIndicator,
 } from 'react-native';
 import Exponent, { DangerZone } from 'exponent';
 
 const { Lottie: Animation } = DangerZone;
 
 const propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   getPosts: PropTypes.func.isRequired,
+  navigation: PropTypes.any,
 };
 
 class Home extends React.Component {
@@ -31,6 +34,14 @@ class Home extends React.Component {
 
   componentWillMount() {
     this.playAnimation();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { navigate } = this.props.navigation;
+
+    if (nextProps.success) {
+      navigate('map');
+    }
   }
 
   playAnimation = () => {
@@ -59,6 +70,8 @@ class Home extends React.Component {
   }
 
   render() {
+    const { isLoading } = this.props;
+
     return (
       <View style={styles.container}>
         <Text>Hi!</Text>
@@ -73,11 +86,15 @@ class Home extends React.Component {
             progress={this.state.progress}
           />
         </View>
-        <Button
-          title="login with facebook"
-          color="#262626"
-          onPress={this.login}
-        />
+        {!isLoading ?
+          <Button
+            title="login with facebook"
+            color="#262626"
+            onPress={this.login}
+          />
+          :
+          <ActivityIndicator />
+        }
       </View>
     );
   }

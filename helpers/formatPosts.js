@@ -1,3 +1,11 @@
+const formatPost = (post) => {
+  if (post.place) {
+    return true;
+  }
+
+  return false;
+};
+
 const formatPosts = (posts) => {
   let formattedPosts = [];
   posts.forEach((post) => {
@@ -11,13 +19,5 @@ const formatPosts = (posts) => {
   return formattedPosts;
 };
 
-const formatPost = (post) => {
-  if (post.location !== null) {
-    console.log(post.location);
-    return true;
-  }
-
-  return false;
-};
 
 export default formatPosts;

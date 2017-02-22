@@ -34,6 +34,16 @@ const isLoading = (state = false, action) => {
   }
 };
 
+const success = (state = false, action) => {
+  switch (action.type) {
+    case 'FETCH_POSTS_SUCCESS':
+      return true;
+
+    default:
+      return state;
+  }
+};
+
 const errorMessage = (state = null, action) => {
   switch (action.type) {
     case 'FETCH_POSTS_FAILURE':
@@ -52,6 +62,7 @@ const posts = combineReducers({
   byId,
   allIds,
   isLoading,
+  success,
   errorMessage,
 });
 
@@ -60,6 +71,7 @@ export default posts;
 const getAllPosts = (state) => state.allIds.map((id) => state.byId[id]);
 const getPost = (state, id) => state.byId[id];
 const getIsLoading = (state) => state.isLoading;
-const getErrorMessage = (state) => state.errorMessage;
+const getSuccess = (state) => state.success;
+const getError = (state) => state.error;
 
-export { getAllPosts, getPost, getIsLoading, getErrorMessage };
+export { getAllPosts, getPost, getIsLoading, getSuccess, getError };

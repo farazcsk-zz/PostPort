@@ -1,16 +1,16 @@
 import { normalize } from 'normalizr';
 
 import * as schema from './postSchema';
+import formatPosts from '../helpers/formatPosts';
 
 const getPosts = ({ accessToken }) => {
   return (dispatch) => {
     dispatch({ type: 'FETCH_POSTS_REQUEST' });
 
-    fetch(`https:graph.facebook.com/me?fields=posts{place, picture}&access_token=${accessToken}`)
+    fetch(`https:graph.facebook.com/me?fields=posts{message, place, full_picture}&access_token=${accessToken}`)
       .then((response) => response.json())
       .then((responseData) => {
-        const posts = responseData.posts.data;
-
+        const posts = formatPosts(responseData.posts.data);
         return dispatch({
           type: 'FETCH_POSTS_SUCCESS',
           response: normalize(posts, schema.postListSchema),
@@ -24,7 +24,6 @@ const getPosts = ({ accessToken }) => {
         });
       });
   };
-    // https:graph.facebook.com/me?fields=posts{place}&access_token=
 };
 
 export {
