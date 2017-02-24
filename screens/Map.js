@@ -21,10 +21,24 @@ class Map extends Component {
     region: {
       latitude: 0,
       longitude: 0,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitudeDelta: 0.0315,
+      longitudeDelta: 0.0258,
     },
   };
+
+  componentWillMount() {
+    const post = this.props.posts[0];
+    const place = this.props.places[post.place];
+
+    this.setState({
+      ...this.state,
+      region: {
+        ...this.state.region,
+        latitude: place.location.latitude,
+        longitude: place.location.longitude,
+      },
+    });
+  }
 
   switchPost = (postIndex) => {
     const post = this.props.posts[postIndex];

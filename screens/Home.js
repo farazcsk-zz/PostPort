@@ -40,6 +40,7 @@ class Home extends React.Component {
     const { navigate } = this.props.navigation;
 
     if (nextProps.success) {
+      console.log(nextProps.posts);
       navigate('map');
     }
   }
