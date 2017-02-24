@@ -2,7 +2,7 @@
   "name": "marauders-map-native",
   "description": "An empty new project",
   "slug": "marauders-map-native",
-"  privacy": "unlisted",
+"  privacy": "public",
   "sdkVersion": "14.0.0",
   "version": "1.0.0",
   "android": {
