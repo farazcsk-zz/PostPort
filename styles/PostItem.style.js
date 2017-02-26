@@ -2,20 +2,17 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from './map.style';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
-
-function wp(percentage) {
-  const value = (percentage * viewportWidth) / 100;
-  return Math.round(value);
-}
+const ITEM_SPACING = 10;
+const ITEM_PREVIEW = 10;
 
 const slideHeight = viewportHeight * 0.4;
-const slideWidth = wp(75);
+const slideWidth = viewportWidth - (2 * ITEM_SPACING) - (2 * ITEM_PREVIEW);
 
 export const sliderWidth = viewportWidth;
-export const itemHorizontalMargin = wp(2);
+export const itemHorizontalMargin = ITEM_SPACING / 2;
 export const itemWidth = slideWidth + (itemHorizontalMargin * 2);
 
-const entryBorderRadius = 8;
+const entryBorderRadius = 0;
 
 export default StyleSheet.create({
   slideInnerContainer: {

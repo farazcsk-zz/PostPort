@@ -1,6 +1,6 @@
 import { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
-import { View, Platform, Button } from 'react-native';
+import { View, Dimensions, Button, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import PostItem from '../components/PostItem';
@@ -13,22 +13,45 @@ const propTypes = {
   places: PropTypes.shape({}).isRequired,
 };
 
+const screen = Dimensions.get('window');
+const ASPECT_RATIO = screen.width / screen.height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const ITEM_PREVIEW_HEIGHT = 150;
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  map: {
+    backgroundColor: 'transparent',
+    ...StyleSheet.absoluteFillObject,
+  },
+  postContainer: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    paddingTop: screen.height - ITEM_PREVIEW_HEIGHT - 128,
+  },
+});
+
 class Map extends Component {
   static navigationOptions = {
     title: 'Map',
-  }
+    header: {
+      visible: false,
+    },
+  };
 
   state = {
     region: {
       latitude: 0,
       longitude: 0,
-      latitudeDelta: 0.0315,
-      longitudeDelta: 0.0258,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
     },
   };
 
   componentWillMount() {
-    const { posts } = this.props;
     const post = this.props.posts[0];
     const place = this.props.places[post.place];
 
@@ -49,8 +72,6 @@ class Map extends Component {
   }
 
   focusMap = (posts, animated) => {
-    console.log(`Markers received to populate map: ${posts}`);
-
     this.map.fitToSuppliedMarkers(posts, animated);
   }
 
@@ -62,25 +83,21 @@ class Map extends Component {
     this.map.animateToRegion({
       latitude: place.location.latitude,
       longitude: place.location.longitude,
-      latitudeDelta: 0.0315,
-      longitudeDelta: 0.0258,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
     });
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <Components.MapView
-          style={{ flex: 1 }}
+          style={styles.map}
           region={this.state.region}
           ref={(ref) => { this.map = ref; }}
         >
-          <Button
-            title='Show All'
-            onPress={this.onFocusClick}
-          />
           {
-            this.props.posts.map((post, index) => {
+            this.props.posts.map((post) => {
               const place = this.props.places[post.place];
 
               return (
@@ -97,11 +114,16 @@ class Map extends Component {
               );
             })
           }
+        </Components.MapView>
+        <View style={styles.postContainer}>
+          <Button
+            title="Show All"
+            onPress={this.onFocusClick}
+          />
           <Carousel
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
             onSnapToItem={(index) => this.switchPost(index)}
-            containerCustomStyle={{ top: 325 }}
           >
             {
               this.props.posts.map((post) => {
@@ -115,30 +137,7 @@ class Map extends Component {
               })
             }
           </Carousel>
-        </Components.MapView>
-        {Platform.OS === 'android' &&
-          <Carousel
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            onSnapToItem={(index) => this.switchPost(index)}
-            containerCustomStyle={{
-              paddingTop: 25,
-              backgroundColor: '#fafafa',
-            }}
-            >
-            {
-              this.props.posts.map((post) => {
-                return (
-                  <PostItem
-                    title={post.message ? post.message : 'nothing here!'}
-                    imageSource={post.full_picture}
-                    key={post.id}
-                  />
-                );
-              })
-            }
-          </Carousel>
-        }
+        </View>
       </View>
     );
   }
