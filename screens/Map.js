@@ -1,6 +1,6 @@
 import { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
-import { View, Dimensions, Button, StyleSheet } from 'react-native';
+import { View, Dimensions, TouchableOpacity, StyleSheet, Animated, Text, Easing } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import PostItem from '../components/PostItem';
@@ -29,8 +29,18 @@ const styles = StyleSheet.create({
   },
   postContainer: {
     backgroundColor: 'transparent',
+    zIndex: -9999,
+  },
+  back: {
     position: 'absolute',
-    paddingTop: screen.height - ITEM_PREVIEW_HEIGHT - 128,
+    top: 20,
+    left: 12,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    padding: 12,
+    borderRadius: 20,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -49,9 +59,11 @@ class Map extends Component {
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     },
+    isPostOpen: false,
   };
 
   componentWillMount() {
+    this.animatedValue = new Animated.Value(screen.height - ITEM_PREVIEW_HEIGHT - 200);
     const post = this.props.posts[0];
     const place = this.props.places[post.place];
 
@@ -69,6 +81,32 @@ class Map extends Component {
     const { postIds } = this.props;
 
     this.focusMap(postIds, true);
+  }
+
+  onPostPress = () => {
+    if (!this.state.isPostOpen) {
+      this.setState({
+        ...this.state,
+        isPostOpen: true,
+      }, () => {
+        Animated.timing(this.animatedValue, {
+          toValue: 10,
+          duration: 500,
+          easing: Easing.exp,
+        }).start();
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        isPostOpen: false,
+      }, () => {
+        Animated.timing(this.animatedValue, {
+          toValue: screen.height - ITEM_PREVIEW_HEIGHT - 200,
+          duration: 500,
+          easing: Easing.circle,
+        }).start();
+      });
+    }
   }
 
   focusMap = (posts, animated) => {
@@ -89,6 +127,10 @@ class Map extends Component {
   }
 
   render() {
+    const animatedStyle = {
+      height: this.animatedValue,
+    };
+
     return (
       <View style={styles.container}>
         <Components.MapView
@@ -115,29 +157,33 @@ class Map extends Component {
             })
           }
         </Components.MapView>
-        <View style={styles.postContainer}>
-          <Button
-            title="Show All"
-            onPress={this.onFocusClick}
-          />
-          <Carousel
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            onSnapToItem={(index) => this.switchPost(index)}
-          >
-            {
-              this.props.posts.map((post) => {
-                return (
-                  <PostItem
-                    title={post.message ? post.message : 'nothing here!'}
-                    imageSource={post.full_picture}
-                    key={post.id}
-                  />
-                );
-              })
-            }
-          </Carousel>
-        </View>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={this.onFocusClick}
+        >
+          <Text style={{ fontWeight: 'bold' }}>🌀</Text>
+        </TouchableOpacity>
+        <Animated.View style={[styles.postContainer, animatedStyle]} />
+        <Carousel
+          showsHorizontalScrollIndicator={false}
+          enableMomentum
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          onSnapToItem={(index) => this.switchPost(index)}
+        >
+          {
+            this.props.posts.map((post) => {
+              return (
+                <PostItem
+                  title={post.message ? post.message : 'nothing here!'}
+                  onPostPress={this.onPostPress}
+                  imageSource={post.full_picture}
+                  key={post.id}
+                />
+              );
+            })
+          }
+        </Carousel>
       </View>
     );
   }

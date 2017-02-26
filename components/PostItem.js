@@ -5,7 +5,7 @@ import styles from '../styles/PostItem.style';
 
 class PostItem extends Component {
   render() {
-    const { title, subtitle, imageSource, even } = this.props;
+    const { title, subtitle, imageSource, even, onPostPress } = this.props;
     const uppercaseTitle = title ? (
       <Text style={[styles.title, even ? styles.titleEven : {}]} numberOfLines={2}>
         { title.toUpperCase() }
@@ -16,7 +16,7 @@ class PostItem extends Component {
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.slideInnerContainer}
-        onPress={() => { alert(`You've clicked '${title}'`); }}
+        onPress={onPostPress}
       >
         <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
           <Image
