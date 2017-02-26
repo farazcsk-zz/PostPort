@@ -1,8 +1,8 @@
 {
-  "name": "marauders-map-native",
+  "name": "PostPort",
   "version": "0.0.0",
-  "description": "Hello Exponent!",
-  "author": null,
+  "description": "Where have you been?",
+  "author": "Faraz Khan",
   "private": true,
   "main": "main.js",
   "scripts": {
