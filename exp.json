@@ -1,8 +1,7 @@
 {
-  "name": "marauders-map-native",
+  "name": "PostPort",
   "description": "An empty new project",
   "slug": "marauders-map-native",
-"  privacy": "public",
   "sdkVersion": "14.0.0",
   "version": "1.0.0",
   "android": {

@@ -2,20 +2,17 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from './map.style';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
-
-function wp(percentage) {
-  const value = (percentage * viewportWidth) / 100;
-  return Math.round(value);
-}
+const ITEM_SPACING = 10;
+const ITEM_PREVIEW = 10;
 
 const slideHeight = viewportHeight * 0.4;
-const slideWidth = wp(75);
+const slideWidth = viewportWidth - (2 * ITEM_SPACING) - (2 * ITEM_PREVIEW);
 
 export const sliderWidth = viewportWidth;
-export const itemHorizontalMargin = wp(2);
+export const itemHorizontalMargin = ITEM_SPACING / 2;
 export const itemWidth = slideWidth + (itemHorizontalMargin * 2);
 
-const entryBorderRadius = 8;
+const entryBorderRadius = 0;
 
 export default StyleSheet.create({
   slideInnerContainer: {
@@ -26,7 +23,8 @@ export default StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius,
   },
@@ -35,7 +33,7 @@ export default StyleSheet.create({
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     borderRadius: Platform.OS === 'ios' ? entryBorderRadius : 0,
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius,
@@ -45,26 +43,24 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height:
-      entryBorderRadius,
-    backgroundColor: 'white' },
+    height: entryBorderRadius,
+  },
   radiusMaskEven: {
     backgroundColor: colors.black },
-  textContainer: { justifyContent:
-          'center',
-    paddingTop: 20 - entryBorderRadius,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
+  textContainer: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
     backgroundColor: 'white',
-    borderBottomLeftRadius: entryBorderRadius,
-    borderBottomRightRadius:
-          entryBorderRadius },
-  textContainerEven: { backgroundColor:
-            colors.black },
-  title: { color: colors.black,
+  },
+  textContainerEven: {
+    backgroundColor: colors.black },
+  title: {
+    color: colors.black,
     fontSize: 13,
     fontWeight: 'bold',
-    letterSpacing: 0.5 },
+    letterSpacing: 0.5,
+  },
   titleEven: { color:
                 'white' },
   subtitle: { marginTop: 6,
