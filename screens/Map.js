@@ -1,6 +1,6 @@
 import { Components } from 'exponent';
 import React, { Component, PropTypes } from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, Button } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import PostItem from '../components/PostItem';
@@ -9,6 +9,7 @@ import { sliderWidth, itemWidth } from '../styles/PostItem.style';
 
 const propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  postIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   places: PropTypes.shape({}).isRequired,
 };
 
@@ -27,6 +28,7 @@ class Map extends Component {
   };
 
   componentWillMount() {
+    const { posts } = this.props;
     const post = this.props.posts[0];
     const place = this.props.places[post.place];
 
@@ -39,6 +41,19 @@ class Map extends Component {
       },
     });
   }
+
+  onFocusClick = () => {
+    const { postIds } = this.props;
+
+    this.focusMap(postIds, true);
+  }
+
+  focusMap = (posts, animated) => {
+    console.log(`Markers received to populate map: ${posts}`);
+
+    this.map.fitToSuppliedMarkers(posts, animated);
+  }
+
 
   switchPost = (postIndex) => {
     const post = this.props.posts[postIndex];
@@ -60,13 +75,18 @@ class Map extends Component {
           region={this.state.region}
           ref={(ref) => { this.map = ref; }}
         >
+          <Button
+            title='Show All'
+            onPress={this.onFocusClick}
+          />
           {
-            this.props.posts.map((post) => {
+            this.props.posts.map((post, index) => {
               const place = this.props.places[post.place];
 
               return (
                 <Components.MapView.Marker
                   key={post.id}
+                  identifier={post.id}
                   coordinate={{
                     latitude: place.location.latitude,
                     longitude: place.location.longitude,
