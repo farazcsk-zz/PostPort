@@ -63,7 +63,7 @@ class Map extends Component {
   };
 
   componentWillMount() {
-    this.animatedValue = new Animated.Value(screen.height - ITEM_PREVIEW_HEIGHT - 200);
+    this.animatedValue = new Animated.Value(screen.height - ITEM_PREVIEW_HEIGHT - 190);
     const post = this.props.posts[0];
     const place = this.props.places[post.place];
 
@@ -166,7 +166,6 @@ class Map extends Component {
         <Animated.View style={[styles.postContainer, animatedStyle]} />
         <Carousel
           showsHorizontalScrollIndicator={false}
-          enableMomentum
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
           onSnapToItem={(index) => this.switchPost(index)}
@@ -177,7 +176,7 @@ class Map extends Component {
 
               return (
                 <PostItem
-                  title={post.message ? post.message : 'nothing here!'}
+                  title={post.message}
                   subtitle={`${place.location.city}, ${place.location.country}`}
                   onPostPress={this.onPostPress}
                   imageSource={post.full_picture}
