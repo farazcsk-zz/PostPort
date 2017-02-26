@@ -173,9 +173,12 @@ class Map extends Component {
         >
           {
             this.props.posts.map((post) => {
+              const place = this.props.places[post.place];
+
               return (
                 <PostItem
                   title={post.message ? post.message : 'nothing here!'}
+                  subtitle={`${place.location.city}, ${place.location.country}`}
                   onPostPress={this.onPostPress}
                   imageSource={post.full_picture}
                   key={post.id}
