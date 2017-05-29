@@ -1,2 +1,4 @@
-# marauders-map-native
-Clone of marauders-map built for TechCrunch Disrupt London hackathon .
+# PostPort
+A mobile app for viewing facebook posts with location data(only mine because the facebook api) plotted on a map.
+
+Now with finger swipping action.
